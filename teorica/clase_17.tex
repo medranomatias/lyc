@@ -1,0 +1,312 @@
+\section{Clase 17}
+ 
+\subsection{Funciones Iniciales}
+ 
+\begin{enumerate}
+	\item $suc(x) = x + 1$
+	\item $cero(x) = 0$
+	\item proyecciones si $1 \leq i \leq n$, $\varPi_{i}^{n}(x_1, x_2, \ldots, x_n) = x_i$
+\end{enumerate}
+ 
+\subsection{Operaciones}
+ 
+\begin{enumerate}
+	\item \textbf{composicion} si $\mathcal{F} \colon \mathbb{N}^{k} \rightarrow \mathbb{N}$ y $g_1, g_2, \ldots, g_k \colon \mathbb{N}^{n} \rightarrow \mathbb{N}$ $h(x_1, x_2, \ldots, x_n) = \mathcal{F}(g_1(x_1, \ldots, x_n), \ldots, g_k(x_1, \ldots, x_n))$
+	\item \textbf{recursi\'on}
+		\begin{enumerate}
+			\item si $H \colon \mathbb{N}^2 \rightarrow \mathbb{N}$ y $k \in \mathbb{N}$, se define $\mathcal{F} \colon \mathbb{N} \rightarrow \mathbb{N}$ recursivamente como $\mathcal{F}(0) = k$, $\mathcal{F}(n + 1) = H(n, \mathcal{F}(n))$.
+			\item si $H \colon \mathbb{N}^{n + 2} \rightarrow \mathbb{N}$ y $g \colon \mathbb{N}^{n} \rightarrow \mathbb{N}$, se define $\mathcal{F} \colon \mathbb{N}^{n + 1} \rightarrow \mathbb{N}$ recursivamente como $\mathcal{F}(x_1, \ldots, x_n, 0) = g(x_1, \ldots, x_n)$, $\mathcal{F}(x_1, \ldots, x_n, t + 1) = H(x_1, \ldots, x_n, t, \mathcal{F}(x_1, \ldots, x_n, tx_1, \ldots, x_n))$.
+		\end{enumerate}
+\end{enumerate}
+ 
+\begin{definition}[PRC-clase]
+Una clase de funciones que contiene a las funciones iniciales y es cerrada por las operaciones de composici\'on y recursi\'on se denomina \textbf{PRC-clase}.
+\end{definition}
+ 
+\begin{observation}
+La clase de funciones recursivas primitivas es la menor PRC-clase. En particular, toda funci\'on recursiva primitiva es computable.
+\end{observation}
+ 
+\subsection{Ejemplos de funciones recursivas primitivas}
+ 
+\begin{enumerate}
+	\item $s(x, y) = x + y$
+	\item $prod(x, y) = x \times y$
+	\item $fact(x) = x!$
+	\item $pot(x, y) = x^{y}$
+\end{enumerate}
+ 
+\begin{example}
+Veo como escribo $pot$ como funci\'on inductiva:
+	\begin{enumerate}
+		\item[] $pot(x, 0) = x^{0} = 1$
+		\item[] $pot(x, y + 1) = x^{y} \times x = pot(x, y) \times x$
+	\end{enumerate}
+	Para ver que es recursiva primitiva veo que se puede obtener con las funciones iniciales y las operaciones ya mencionadas.
+	
+	$H(x, y, \underbrace{pot(x, y)}_{z})$ luego $H(x, y, z) = x \times z$ y ya dijimos que el producto es recursiva primitiva pero ojo porque esta H no es el producto tal cual  porque $prod(x, y)$ es funci\'on de dos variables, esto se soluciona con proyecciones.
+	
+	\[
+		H(x, y, z) = x \times z = \underbrace{\varPi_{1}^{3}(x, y, z)}_{x} \times \underbrace{\varPi_{3}^{3}(x, y, z)}_{z}
+	\]
+	
+Como $H$ y $1$ son recursivas primitivas, entonces $pot(x, y)$ es recursiva primitiva.
+\end{example}
+ 
+\begin{example}
+Sean $n \in \mathbb{N}$, se define la siguiente funci\'on $g(n) =  n^{n^{n^{\ldots^{n}}}}$
+ 
+$g(1) = 1$
+ 
+$g(2) = 2^{2}$
+ 
+$g(3) = 3^{3^{3}}$
+ 
+$g(4) = 4^{4^{4^{4}}}$
+ 
+No hay ninguna inducci\'on f\'acil como en el caso del producto o la potencia.
+ 
+ 
+\textbf{Definimos} $G : \mathbb{N} \times \mathbb{N} \rightarrow \mathbb{N}$ del siguiente modo: $G(n, m) = n^{n^{n^{\ldots^{n}}}}$ m veces. Notar que $g(n) = G(n, n)$. Si probamos que $G$ es recursiva primitiva entonces sabemos que $g$ lo es, veamos que $G$ es recursiva primitiva.
+ 
+\begin{enumerate}
+	\item[] $G(n, 0) = 1$
+	\item[] $G(n, m + 1) = n^{g(n, m)} = H(n, m, \underbrace{G(n, m)}_{p}) = H(n, m, p) = n^{p} = pot(\varPi_{1}^{3}(n, m, p), \varPi_{3}^{3}(n, m, p))$
+\end{enumerate}
+ 
+G es recursiva primitiva, por lo tanto, g es primitiva recursiva.
+ 
+\end{example}
+ 
+\begin{example}
+ 
+\textbf{Predecesor}
+ 
+\[
+p(x) = x - 1 =
+\begin{cases}
+x - 1		&\text{si $x \neq 0$}	\\
+0			&\text{si $x = 0$}
+\end{cases}
+\]
+ 
+\begin{enumerate}
+	\item[] $p(0) = 0$
+	\item[] $p(x + 1) = x = H(x, \underbrace{p(x)}_y) \Rightarrow H(x, y) = \varPi_{1}^{2}(x, y) = x$
+\end{enumerate}
+ 
+\end{example}
+ 
+\begin{example}
+\textbf{Resta truncada}
+ 
+\[
+x \dot{-} y =
+\begin{cases}
+x - y		&\text{si $x \geq y$}	\\
+0			&\text{sino}
+\end{cases}
+\]
+ 
+Haciendo inducci\'on sobre la segunda variable
+ 
+\[
+x - 0 = 0
+\]
+ 
+\[
+x - (y + 1) =
+\begin{cases}
+(x - y) - 1 &\text{si $x - y \geq 1$  }	\\
+0			&\text{sino} 
+\end{cases}
+\]
+ 
+ 
+$P(x \dot{-} y) = (x - y) - 1 = H(x, y, \underbrace{x \dot{-} y}_{z}) = H (x, y, z) = p(z)$
+ 
+\end{example}
+ 
+\begin{example}
+\textbf{Funci\'on distancia}
+ 
+\[
+d(x, y) = |x - y| =
+\begin{cases}
+x - y		&\text{si $x \geq y$}	\\
+y - x		&\text{si $x < y$}
+\end{cases}
+\]
+ 
+Se tiene $d(x, y) = (x \dot{-} y) + (y \dot{-} x)$
+ 
+\end{example}
+ 
+\begin{example}
+\textbf{Igualdad}
+\[
+eq(x, y) =
+\begin{cases}
+1			&\text{si $x = y$}			\\
+0			&\text{si $x \neq y$}
+\end{cases}
+=
+\begin{cases}
+1			&\text{si $d(x, y) = 0$}	\\
+0			&\text{si $d(x, y) \neq 0$}
+\end{cases}
+\]
+\textbf{Nota} Utilizando la funci\'on distancia se puede reescribir la funci\'on
+\end{example}
+ 
+\begin{example}
+ 
+\[
+\delta =
+\begin{cases}
+1			&\text{si $x = 0$}		\\
+0			&\text{si $x \neq 0$}		
+\end{cases}
+\]
+ 
+Notar que $eq(x, y) = \delta(d(x, y))$. $\delta$ es f\'acil de ver que es recursiva primitiva:
+ 
+\begin{enumerate}
+	\item[] $\delta(0) = 1$
+	\item[] $\delta(x + 1) = 1 = H(x,\underbrace{\delta(x)}_{y}) = H(x, y) = 1$
+\end{enumerate}
+ 
+\end{example}
+ 
+ 
+\begin{definition}[recursiva primitiva (o computable)]
+Sea $P = P(x_1, x_2, \ldots, x_n)$ un predicado de n-variables, es decir $P \subseteq \underbrace{\mathbb{N} \times \ldots \times \mathbb{N}}_{\text{n veces}}$ diremos que $P$ es recursivo primitivo (o computable) si la siguiente funci\'on es recursiva primitiva (o computable)
+ 
+\[
+C_p(x_1, x_2, \ldots, x_n) =
+\begin{cases}
+1	&\text{si $(x_1, x_2, \ldots, x_n) \in P$}	\\
+0	&\text{si $(x_1, x_2, \ldots, x_n) \notin P$}
+\end{cases}
+\]
+ 
+\end{definition}
+ 
+\begin{proposition}
+Sean $P$ y $Q$ predicados de n-variables. Entonces
+ 
+\begin{enumerate}
+	\item Si $P$ es recursivo primitivo (o computable) entonces $\neg P$ es recursivo primitivo (o computable)
+	\item Si $P$ y $Q$ son recursivos primitivos (o computables) entonces $(P \wedge Q)$ y $(P \lor Q)$ son recursivos primitivos (o computables)
+\end{enumerate}
+ 
+\textbf{Observaci\'on} Cuando estamos poniendo ``(o computables)" no estamos diciendo que es un sin\'onimo de recursivo primitivo; es un caso u otro (en algunos casos pueden pasar simult\'aneamente pero no necesariamente pasa)
+ 
+\begin{proof}[Demostraci\'on]
+\hfill
+\begin{enumerate}
+	\item $C_{\neg p}(x_1, x_2, \ldots, x_n) = 1 \dot{-} C_p()$
+	\item $C_{p \land q} = C_p(x_1, x_2, \ldots, x_n) \times C_q(x_1, x_2, \ldots, x_n)$
+	\item $C_{p \lor q} = (C_p(x_1, x_2, \ldots, x_n) + C_q(x_1, x_2, \ldots, x_n)) \dot{-} C_p(x_1, x_2, \ldots, x_n) \times C_q(x_1, x_2, \ldots, x_n)$
+\end{enumerate}
+ 
+$C_p$, $C_q$, $\times$, $\dot{-}$ son recursivas primitivas u es una composici\'on, por lo tanto todas estas funciones son primitivas recursivas.
+ 
+\end{proof}
+ 
+\end{proposition}
+ 
+\begin{definition}[Suma acotada]
+Sea $\mathcal{F} : \mathbb{N}^{n + 1} \rightarrow \mathbb{N}$ una funci\'on, la suma acotada de $\mathcal{F}$ es la siguiente sucesi\'on $\mathcal{S}_{\mathbb{F}} : \mathbb{N}^{n + 1} \rightarrow \mathbb{N}$ dada por:
+ 
+\[
+S_{\mathcal{F}}(x_1, x_2, \ldots, x_n, t) = \sum_{k = 0}^{t} \mathcal{F}(x_1, x_2, \ldots, x_n, k)
+\]
+\end{definition}
+ 
+\begin{definition}[Producto acotado]
+Sea $\mathcal{F} : \mathbb{N}^{n + 1} \rightarrow \mathbb{N}$ una funci\'on, la suma acotada de $\mathcal{F}$ es la siguiente sucesi\'on $\mathcal{P}_{\mathbb{F}} : \mathbb{N}^{n + 1} \rightarrow \mathbb{N}$ dada por:
+ 
+\[
+P_{\mathcal{F}}(x_1, x_2, \ldots, x_n, t) = \prod_{k = 0}^{t} \mathcal{F}(x_1, x_2, \ldots, x_n, k)
+\]
+\end{definition}
+ 
+\begin{proposition}
+Si $\mathcal{F}$ es primitiva recursiva, entonces $S_{\mathcal{F}}$ y $P_{\mathcal{F}}$ son funciones recursivas primitivas.
+ 
+\begin{proof}[Demostraci\'on]
+\hfill
+\begin{enumerate}
+	\item $S_{\mathcal{F}}(x_1, x_2, \ldots, x_n, 0) = \mathcal{F}(x_1, x_2, \ldots, x_n, 0)$
+	\item $S_{\mathcal{F}}(x_1, x_2, \ldots, x_n, t + 1) = S_{\mathcal{F}}(x_1, x_2, \ldots, x_n, t) + S_{\mathcal{F}}(x_1, x_2, \ldots, x_n, t + 1)$
+\end{enumerate}
+ 
+$H(x_1, x_2, \ldots, x_n, t, \underbrace{S_{\mathcal{F}}(x_1, x_2, \ldots, x_n, t)}_{z}) \Rightarrow H(x_1, x_2, \ldots, x_n, t, z) = z + \mathcal{F}(x_1, x_2, \ldots, x_n, t + 1)$
+ 
+$H$ se obtiene por composici\'on de $+$, $\mathcal{F}$ y $sucesor$. $H$ es recursiva primitiva y luego $S_{\mathcal{F}}$ es recursiva primitiva. La prueba que $P_{\mathcal{F}}$ es recursiva primitiva es an\'aloga.
+\end{proof}
+ 
+\end{proposition}
+ 
+\begin{definition}[Existencial Acotado]
+Sea $P = P(x_1, x_2, \ldots, x_n, t)$ un predicado de $n + 1$ variables. Se define el \textbf{existencial acotado} al siguiente predicado:
+ 
+\[
+\exists_{t \leq y} P(x_1, x_2, \ldots, x_n, t)
+\]
+ 
+Este predicado es verdadero con entradas $x_1, \ldots, x_n$ y si para alg\'un $t \in \{0, \ldots, y \}$ el predicado $P(x_1, x_2, \ldots, x_n, t)$ es verdadero.
+ 
+\end{definition}
+ 
+\begin{definition}[Universal Acotado]
+Sea $P = P(x_1, x_2, \ldots, x_n, t)$ un predicado de $n + 1$ variables. Se define el \textbf{universal acotado} al siguiente predicado:
+ 
+\[
+\forall_{t \leq y} P(x_1, x_2, \ldots, x_n, t)
+\]
+ 
+Este predicado es verdadero con entradas $x_1, \ldots, x_n$ y si para todas $t \in \{0, \ldots, y \}$ el predicado $P(x_1, x_2, \ldots, x_n, t)$ es verdadero.
+ 
+\end{definition}
+ 
+\begin{theorem}
+Si $P = P(x_1, \ldots, x_n, t)$ es un predicado recursivo primitivo de $n + 1$ variables, entonces $\exists_{t \leq y} P(x_1, \ldots, x_n, t)$ y $\forall_{t \leq y} P(x_1, x_2, \ldots, x_n, t)$ son tambi\'en predicados primitivos recursivos en las variables $x_1, x_2, \ldots, x_n$
+\end{theorem}
+ 
+\begin{proof}[Demostraci\'on]
+Veamos que $\forall_{t \leq y} P(x_1, x_2, \ldots, x_n, t)$ es  recursivo primitivo, Notamos $Q(x_1, \ldots, x_n, y) = \forall_{t \leq y} P(x_1, x_2, \ldots, x_n, t)$. Debemos ver que $C_q(x_1, \ldots, x_n, y)$ es recursiva primitiva.
+ 
+$C_q(x_1, \ldots, x_n, y)$ = producto acotado entre 0 e y $C_p(x_1, \ldots, x_n, t)$ $C_q$ es producto acotado y como $C_p$ es primitiva recursiva, entonces $C_q$ es primitiva recursiva
+\end{proof}
+ 
+\begin{comment}
+ 
+\begin{example}
+g(y) = \exists x \; P(x, y)
+ 
+g(y) =
+ 
+1 si P(x, y) es verdadero para alg\'un x
+ 
+0 sino
+ 
+Si hago un programa en S puede ser que nunca llegue a valer 0
+ 
+\end{example}
+ 
+ 
+ 
+ 
+Teorema
+ 
+Si P = P(x_1, x_2, ..., x_n, t) es un predicado recursivo primitivo de n + 1 variables entonces
+ 
+\exists t \leq y P .... y \forall t \leq y P .... son tambi\'en predicados primitivos recursivos en las variables x_1, x_2, ... x_n, y
+ 
+ 
+Prueba
+ 
+ 
+\end{comment}

@@ -1,0 +1,177 @@
+\section{Clase 21}
+ 
+Vamos a probar que $STEP^{(n)}(x_1, \ldots, x_n, y, t)$ es recursivo primitivo.
+ 
+ 
+\begin{theorem}
+El predicado $STEP^{(n)}$ es recursivo primitivo
+\end{theorem}
+ 
+\begin{proof}[Demostraci\'on]
+Utilizaremos las siguientes funciones:
+ 
+\begin{description}
+	\item [Etiqueta] $LABEL(i, y) = {l(y + 1)}_{i}$
+	\item [Variable] $Var(i, y) = r({r(y + 1)}_{i}) + 1$
+	\item [Tipo de Instrucci\'on] $INSTR(i, y) = l({r(y + 1)}_{i})$
+	\item [Etiqueta'] $LABEL'(i, y) = l({r(y + 1)}_{i}) - 2$
+\end{description}
+ 
+A continuaci\'on introduciremos los siguientes predicados que dependen de dos variables $(x, y)$ con $y$ un c\'odigo de programa y $x$ un $SNAPSHOP$ $(x = <i, G>)$
+ 
+Cuando el estado de una instrucci\'on no cambia
+ 
+$V \leftarrow V - 1$
+ 
+$IF V \neq 0 GOTO C$
+ 
+ 
+\begin{enumerate}
+	\item $SKIP(x, y) = 1 \iff INSTRUCT(l(x), y) \geq z \wedge \sim\ P_{var}(l(x), y) | r(x) \lor INSTR(l(x), y) = 0 \wedge l(x) \geq lt(y + 1)$
+	\item $INCR(x, y) = 1 \iff INSTRUCT(l(x), y) = 1$
+	\item $DECR (x, y) = 1 \iff INSTRUC(l(x), y) = 2 \wedge P_{var}(l(x)) | r(r)$	
+	\item $BRANCH(x, y) = 1 \iff INSTRUC(l(x), y) > 2 \wedge P_{var}(l(x), y) | r(x) \\ \wedge \exists i 						\leq lt(y + 1) LABEL(i, y) = LABEL'(l(x), y)$
+\end{enumerate}
+ 
+Definimos a partir de estos predicados la funci\'on sucesor de un \textit{snapshot} o \textit{descripci\'on instant\'anea}
+\[
+SUC(x, y) =
+\begin{cases}
+<l(x) + 1, r(x)>													&\text{IF SKIP(x, y)}		\\
+<l(x) + 1, r(x) \cdot P_{var}(l(x), y)>								&\text{IF INCR(x, y)}		\\
+<l(x) + 1, \left[\cfrac{r(x)}{P_{var}(l(x), y)} \right]>			&\text{IF DECR(x, y)}		\\
+<min_{1 \leq t \leq (y + 1)} [LABEL(i, y)] = LABEL'(l(x), y), r(x)>	&\text{IF BRANCH(x, y)}		\\
+<Lt(y+ 1), r(x)>													&\text{en otro caso}		\\
+\end{cases}
+\]
+ 
+Tambi\'en definimos el \textit{snapshot} inicial:
+ 
+\[
+INIT^{n}(x_1, \ldots, x_n) = <1, \prod_{i = 1}^{n} p_{2i}^{x_i}>
+\]
+ 
+Terminaci\'on del programa
+ 
+\begin{enumerate}
+	\item $TERM(x, y) = 1 \iff l(x) > Lt(y + 1) $
+	\item $SNAP^n(x_1, \ldots, x_n, y, 0) = INIT(x_1, \ldots, x_n)$
+	\item $SNAP^n(x_1, \ldots, x_n, y, i + 1) = SUC(SNAP^{n}(x_1, \ldots, x_n, y , i), y)$
+	\item $STEP^{(n)}(x_1, \ldots, x_n, y, t) = 1 \iff TERM(SNAP^{n}(x_1, \ldots, x_n, y, t), y)$
+\end{enumerate}
+ 
+Conclusi\'on $STEP^{n}$ es \textit{recursivo primitivo}
+ 
+\end{proof}
+ 
+\begin{colorario}[Teorema de la forma normal]
+Si $\mathcal{F}^y = \mathcal{F}(x_1, \ldots, x_n)$ es una funci\'on parcialmente computable. Existe un predicado recursivo primitivo $\mathcal{P}(x_1, \ldots, x_n, z)$ de $n + 1$ variables tal que:
+ 
+\[
+\mathcal{F}(x_1, \ldots, x_n) = l(min_{z}\mathcal{P}(x_1, \ldots, x_n, z))
+\]
+\end{colorario}
+ 
+En particular toda funci\'on parcialmente computable se obtiene en un n\'umero finito de pasos a partir de las funciones iniciales.  Usando composici\'on, recursi\'on y / o minimizaci\'on.
+ 
+\begin{example}
+\[
+resta(x, y) =
+\begin{cases}
+x - y			&x \leq y			\\
+\uparrow		&x < y				\\
+\end{cases}
+\]
+ 
+$Z = X - Y$
+ 
+$resta(x, y) = min_{z}(Z + y = x )$
+\end{example}
+ 
+\begin{definition}[Conjunto recursivo]
+Si $B \subseteq \mathbb{N}$ diremos que $B$ es recursivo si:
+ 
+\[
+C_{b}(x) =
+\begin{cases}
+1		&x \in  B		\\
+0		&x \not \in B		\\
+\end{cases}
+\]
+es computable
+\end{definition}
+ 
+\begin{example}
+$B = \{ x \in \mathbb{N} / \text{x es par} \}$ es recursivo
+ 
+\[
+C_{b}(x) =
+\begin{cases}
+1		&\exists_{z \leq x} \ (x = 2 \cdot z)		\\
+0		&\text{sino}								\\
+\end{cases}
+\]
+ 
+$C_b$ es recursivo primitivo y luego computable.
+\end{example}
+ 
+\begin{example}
+Un ejemplo de un conjunto no recursivo $B = \{ x \in \mathbb{N} / \psi^{\prime}(x, x) \downarrow \}$
+ 
+$C_b(x) = HALT(x, x)$
+\end{example}
+ 
+\begin{proposition}
+Si $B$ y $C$ son conjuntos recursivos entonces $B \cup C$ y $B \cap C$ son conjuntos recursivos.
+\end{proposition}
+ 
+\begin{proof}[Demostraci\'on]
+$C_{B \cup C}(x) = C_B(x) \cdot C_C(x)$ y $C_{B^{C}}(x) = 1 - C_B(x)$
+\end{proof}
+ 
+\begin{definition}
+Un subconjunto $B \subseteq \mathbb{N}$ se dice \textit{recursivamente enumerable} si existe una funci\'on $\mathcal{F}$ parcialmente computable tal que $B = \{ x \in \mathbb{N} / \mathcal{F} \downarrow \}$
+\end{definition}
+ 
+\begin{example}
+$\{ x \in \mathbb{N} / \psi(x, x) \downarrow \}$ es recursivamente enumerable.
+\end{example}
+ 
+ 
+\begin{proposition}
+\hfill
+\begin{enumerate}
+	\item Si $B$ es recursivo entonces $B$ es recursivamente enumerable.
+	\item $B$ es recursivo $\iff$ $B$ y $B^{c}$ son recursivamente enumerables
+\end{enumerate}
+\end{proposition}
+ 
+\begin{proof}[Demostraci\'on]
+\hfill
+\begin{enumerate}
+	\item Como $B$ es recursivo entonces $C_b$ es computable. Sea $g$ la siguiente funci\'on:
+	\[ g(x) =
+		\begin{cases}
+			0			&x \in B		\\
+			\uparrow	&x \not \in B		
+		\end{cases}
+	\]
+	El siguiente programa computa $g$
+	$[A]\ IF \ C_b(x) = 1 \ GOTO \ E$	
+	$GOTO A$
+	\item Si $B$ es recursivo, entonces, $B^c$ tambi\'en es recursivo. Por (1) $B$ y $B^c$ son 			recursivamente enumerables.	 Rec\'iprocamente, sean $g$ y $h$ dos funciones parcialmente 			computables tales que $B = \{ x  \in \mathbb{N} \colon g(x) \downarrow \}$ y $B^c = \{ x \in 	\mathbb{N} \colon h(x) \downarrow \}$
+	
+	\noindent
+	Sea $P$ un programa que computa $g$ y sea $Q$ un programa que computa $h$. Sea $Y_0 = \# \ P		$ y $Z_0 = \# \ Q$. El siguiente programa computa $C_b$
+	
+	$[A] \ IF \ STEP^{(1)}(x, Y_0, t) \ GOTO \ C$
+	
+	$IF \ STEP^{(1)}(x, Z_0, t) \ GOTO \ E$
+	
+	$t \leftarrow t + 1$
+	
+	$GOTO \ A$	
+		
+	$[C] \ Y \leftarrow Y + 1$
+\end{enumerate}
+\end{proof}

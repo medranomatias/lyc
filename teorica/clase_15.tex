@@ -1,0 +1,228 @@
+\section{Computabilidad}
+ 
+\subsection{Variables}
+ 
+\begin{enumerate}
+	\item variables de entrada: $X_1, X_2, X_3, \ldots$ 
+	\item variables locales o auxiliares $Z_1, Z_2, Z_3, \ldots$
+	\item variable de salida $Y$
+\end{enumerate}
+ 
+\subsection{Etiquetas}
+ 
+$A_1, B_1, C_1, D_1, \ldots, A_2, B_2, C_2, \ldots$
+ 
+\subsection{Instrucciones}
+ 
+Son de tres tipos:
+ 
+\begin{enumerate}
+	\item Si $V$ es una variable, $V \leftarrow V + 1$ es una instrucci\'on.
+	\item Si $V$ es una variable, $V \leftarrow V - 1$ es una instrucci\'on.
+	\item Si $V$ es una variable y $L$ es una etiqueta,
+	
+	$IF \; V \neq 0 \; GOTO L$ es una instrucci\'on
+	\item Si $I$ es una instrucci\'on, $[L] I$ es una instrucci\'on con etiqueta L.	
+	
+\end{enumerate}
+ 
+\begin{definition}
+Un \textbf{programa} en el lenguaje $\mathcal{S}$ es una secuencia finita de instrucciones, es decir si $\mathcal{P}$ es un programa, $\mathcal{P}$ consiste en una secuencia $I_1, I_2, \ldots, I_n$ de instrucciones donde cada instrucci\'on puede tener o no una etiqueta. 
+\end{definition}
+ 
+\begin{observation}
+Convenci\'on, un programa $\mathcal{P}$ se escribe como:
+ 
+$I_1$
+ 
+$I_2$
+ 
+$I_3$
+ 
+$I_4$
+ 
+$\ldots$
+ 
+$I_n$
+ 
+Y $n$ se denomina la \textbf{longitud} del programa $\mathcal{P}$
+ 
+\end{observation}
+ 
+\begin{example}
+$Y \leftarrow Y + 1$
+ 
+$Y \leftarrow Y + 1$
+\end{example}
+ 
+\begin{example}
+$[A_1] \; IF \; X_1 \neq 0 \; GOTO \; A_!$
+\end{example}
+ 
+\subsection{Interpretaci\'on de las instrucciones}
+ 
+\begin{enumerate}
+	\item Las variables se interpretan del siguiente modo: cada variable se le asigna un n\'umero natural, siendo dicha variable una variable de entrada $X_i$.
+	\item Las variables locales y las variables de salida se inicializan en 0.
+	\item Si $V$ es una variable con valor $n$, entonces al ejecutarse la instrucci\'on $V \leftarrow V + 1$, la variable $V$ modifica su valor a $n + 1$
+	\item La instrucci\'on $V \leftarrow V - 1$ modifica el valor de $V$ al valor $n -1$, si $n \neq 0$, si $n = 0$, al ejecutar la instrucci\'on $V \leftarrow V - 1$, $V$ siguen quedando en 0.
+	\item La interpretaci\'on de la instrucci\'on $IF V \neq 0 \; GOTO \; L$. Se definen los siguientes casos:
+	\begin{enumerate}
+		\item[a] Si no hay instrucci\'on con etiqueta $L$, entonces el programa \textbf{termina}
+		\item[b] Si $V = 0$ y esta es la \'ultima instrucci\'on del programa, entonces el programa \textbf{termina}.
+		\item[c] Si $V = 0$, se va a la instrucci\'on siguiente, si esta no es la \'ultima instrucci\'on.
+		\item[d] Si $V \neq 0$ y existe una instrucci\'on con etiqueta $L$ se elige el menor $k / I_{k}$ tiene etiqueta $L$ y el programa dirige a $I_{k}$ 
+	\end{enumerate}
+\end{enumerate}
+ 
+Ejemplos de programas:
+ 
+Vamos a ver qeu funciones computan
+ 
+\begin{example}
+$Y \leftarrow Y + 1$
+ 
+$Y \leftarrow Y + 1$
+ 
+Este programa computa la funci\'on que siempre devuelve la funci\'on 2
+\end{example}
+ 
+\begin{example}
+ 
+$Y \leftarrow Y + 1$
+ 
+$\ldots$
+ 
+$Y \leftarrow Y + 1$
+ 
+Se aplica este procedimiento k-veces
+ 
+Este programa computa la funci\'on constante k
+\end{example}
+ 
+\begin{example}
+$Y \leftarrow Y - 1$
+ 
+Este programa computa la funci\'on constante 0
+\end{example}
+ 
+\begin{example}
+$[A_1] \; IF \; X_1 \neq 0 \; GOTO \; A_1$
+ 
+Si $X_1 = n \in \mathbb{N}$ si $n \neq 0$, este programa no termina. Si $n = 0$, el programa termina con $Y = 0$. 
+ 
+P computa una funci\'on \textbf{parcial} y est\'a dada por
+\[
+\begin{cases}
+	0 			&\text{si $X_1 = 0$;} \\
+	\uparrow 	&\text{si $X_1 \neq 0$}
+\end{cases}
+\]
+\end{example}
+ 
+\begin{example}
+$Z_1 \leftarrow Z_1 + 1$
+ 
+$IF \; Z_1 \neq 0 \; GOTO \; L$
+ 
+A este programa lo denominamos \textit{GOTO L} y se lo denomina \textbf{macro} (o \textbf{subprogramas})
+\end{example}
+ 
+\begin{example}
+C\'omo construimos una macro para la sentencia $IF V = 0 \; GOTO \; L$?
+ 
+Consideremos la funci\'on
+\[
+h(x) = 
+\begin{cases}
+	1	&\text{si $x = 0$} \\
+	0	&\text{si $x \neq 0$}
+\end{cases}
+\]
+$\;$
+ 
+$IF \; X_1 \neq 0 \; GOTO \; A_1$
+ 
+$Y \leftarrow Y + 1$
+ 
+\hfill\break
+Si escribimos el programa gen\'erico:
+  
+$IF \; V \neq 0 \; GOTO \; L$
+ 
+$Y \leftarrow Y + 1$
+
+Y el siguiente:
+ 
+$IF \; V \neq 0 \; GOTO \; A_1$
+ 
+$GOTO \; L$
+ 
+\end{example}
+ 
+\begin{example}
+$[A] \; X \leftarrow X - 1$
+ 
+$Y \leftarrow Y + 1$
+ 
+$IF \; X \neq 0 \; GOTO \; A$
+ 
+Haciendo un seguimiento de la ejecuci\'on, tenemos los siguientes valores:
+ 
+$X = 3; (X = 2, Y = 1); (X = 1; Y = 2); (X = 0; Y = 3)$
+ 
+$X = 0; Y = 1$
+
+Este programa computa la funci\'on:
+\[
+F(n)
+\begin{cases}
+n	&\text{si $n \neq 0$} \\
+1 	&\text{si $n = 0$}
+\end{cases}
+\]
+\end{example}
+ 
+\begin{example}
+ 
+$IF \; X = 0 \; GOTO \; A$
+ 
+$[A] \; X \leftarrow X - 1$
+ 
+$Y \leftarrow Y + 1$
+ 
+$IF \; X \neq 0 \; GOTO \;A$
+  
+Haciendo un seguimiento de la ejecuci\'on, tenemos los siguientes valores:
+ 
+$X = 3; (X = 2, Y = 1); (X = 1; Y = 2); (X = 0; Y = 3)$
+ 
+$X = 0; Y = 0$
+\end{example}
+ 
+Observaci\'on: tanto el programa 6 como el programa 7 tiene la desventaja que la variable de entrada se pierde el valor. Ejercicio: Construir un programa que compute la funci\'on identidad pero que cuando el programa termine la variable de entrada mantenga su valor original. (Ayuda: utilizar variables auxiliares)
+ 
+\begin{example}
+$V \leftarrow W$ (macro que copia en $V$, el valor de $W$
+\end{example}
+ 
+\begin{example}
+Este programa computa la suma de dos n\'umeros naturales:
+ 
+$S(X_1, X_2) = X_1 + X_2$
+ 
+$Y \leftarrow X_1$
+ 
+$IF \; X_2 = 0 \; GOTO \; E$
+ 
+$[A] \; Y \leftarrow Y + 1$
+ 
+$X_2 \leftarrow X_2 - 1$
+ 
+$IF \; X_2 \neq 0 \; GOTO \; A$
+ 
+\end{example}
+ 
+Ejercicio adicional: Un programa que compute el producto.
+ 
+ 

@@ -1,0 +1,183 @@
+\section{Clase 07}
+
+Si $\psi = \psi(x_{j1}, x_{j2}, \ldots, x_{jn})$
+
+Su valor de verdad depende de las asignaciones que hagamos
+
+\subsection{Resultado}
+
+Si $\mathcal{I}$ es una interpretaci\'on, con dominio $\mathcal{D}$ y $S_1$ y $S_2$ dos sucesiones tales que $S_{1_{ji}} = S_{2_{ji}}$ $\forall 1 \leq j \leq r$. Entonces $S_1$ satisface a $\psi \iff S_2$ satisface a $\psi$
+
+\subsection{Corolario}
+
+Si $\mathcal{L}$ es un lenguaje de primer orden y $\psi$ es un enunciado (\textbf{f\'ormula sin variables libres}) de $\mathcal{L}$ entonces dada una interpretaci\'on $\mathcal{I}$ de $\mathcal{L}$ con dominio $\mathcal{D}$ se verifica la siguiente condici\'on.
+
+Si una sucesi\'on $S : \mathbb{N} \to \mathcal{D}$ satisface a $\psi$ entonces toda sucesi\'on $\hat{S}$ satisface a $\psi$.
+
+\begin{proof}
+
+Hacemos inducci\'on sobre la complejidad de la f\'ormula $\psi : \mathcal{C}(\psi)$ (incluye a los cuantificadores)
+
+Si $\mathcal{C}(\psi) = 0$, $\psi$ es una f\'ormula at\'omica.
+
+Si $\mathcal{\psi} = \mathcal{P}^n(t_1, t_2, \ldots, t_n)$ con $\mathcal{P}$ s\'imbolos de predicados n-ario y $t_i$ t\'erminos de $\mathcal{L}$ sin variables libres. Si una sucesi\'on $S$ satisface a $\psi$ entonces toda sucesi\'on satisface a $\psi$
+
+Como $S$ satisface a $\psi$ entonces la n-upla $(S^{*}(t_1), S^{*}(t_2), \ldots, S^{*}(t_n)) \in \mathcal{P}^{n}_{D}$.
+
+Si $\hat{S}$ es otra sucesi\'on, entonces $\hat{S}(t_j) = S^{*}(t_j)$ $\forall 1 \leq j \leq n$ pues $t_j$ es un t\'ermino sin variables.
+
+Por lo tanto $(\hat{S}^{*}(t_1), \hat{S}^{*}(t_2), \ldots, \hat{S}^{*}(t_n)) \in \mathcal{P}^{n}_{D}$ lo que prueba que $S^\wedge$ satisface a $\psi$
+
+Si $\psi$ no es at\'omica, se tiene alguno de los siguientes casos:
+
+\begin{enumerate}
+	\item $\psi = \neg \beta$ con $\beta$ f\'ormula. Luego $\beta$ tambi\'en es enunciado. Si $\mathcal{S}$ satisface $\psi$ entonces $\mathcal{S}$ no satisface a $\beta$. Por hip\'otesis inductiva se tiene que $s^\wedge$ no satisface a $\beta$ y luego $s^\wedge$ satisface a $\psi$.
+	\item $\psi = (\beta_1 \lor \beta_2)$ %con \beta_1 y \beta_2 enunciados es f\'acil ver que S satisface a \psi entonces "^s" satisface a \psi
+	\item $\psi = (\beta_1 \land \beta_2$
+	\item $\psi = (\beta_1 \rightarrow \beta_2)$
+	\item $\psi = \forall x_k \; \beta$, variables de $\beta \subseteq \{ x_k\}$.
+	
+	Sea $\mathcal{S}$ una sucesi\'on que satisface a $\psi$ y sea $\hat{S}$ una sucesi\'on. Veamos que $\hat{S}$ satisface a $\psi$. Tomemos una sucesi\'on $\tilde{S}$ tal que $\tilde{S}_j = \hat{S}_j$ $\forall j \neq k$ 
+	
+	Veamos que $\tilde{S}$ satisface a $\beta$. Como $\mathcal{S}$ satisface a $\psi$ tomemos una sucesi\'on $t /\ t_j = S_j$ si $j \neq k$ y $t_k = \tilde{S}_{k}$. Por lo tanto $t$ y $\tilde{S}$ coinciden en las variables libres de $\beta$. Por hip\'otesis inductiva, como $t$ satisface a $\beta$ entonces por el resultado anterior se deduce que $\tilde{S}$ satisface a $\beta$ entonces $\hat{S}$ satisface a $\psi$
+	\item $\psi = \exists x_k \; \beta$ se prueba an\'alogamente al punto anterior.	
+\end{enumerate}
+
+\end{proof}
+
+\begin{definition}
+
+Si $\mathcal{L}$ un lenguaje de primer orden e $\mathcal{I}$ es una interpretaci\'on, diremos que en un enunciado $\psi$ es v\'alido en $\mathcal{I}$ si existe una sucesi\'on (y por lo tanto cualquier sucesi\'on) que satisface a $\psi$.
+
+En este caso escribimos $V_I(\psi) = 1$. Si $\psi$ no es v\'alido en $\mathcal{I}$ escribimos $V_I(\psi) = 0$
+
+\end{definition}
+
+\begin{example}
+
+$\mathcal{L}= \{ = , \mathcal{F}^2 \}$ $I = (\mathbb{N}, \bullet)$
+
+$\psi = \forall x_1, x_2 \mathcal{F}^2(x_1, x_2) = \mathcal{F}^2(x_2, x_1)$
+
+\end{example}
+
+\begin{example}
+
+$\mathcal{I} = (\mathbb{R}^{2 \times 2}, \bullet)$ $V_I(\psi) = 0$
+
+\end{example}
+
+\paragraph{Nota}
+
+En general una f\'ormula $\psi$ es v\'alida en una interpretaci\'on $\mathcal{I}$ con dominio $\mathcal{D}$ si toda la sucesi\'on $\mathcal{S}$ satisface a $\psi$
+
+\begin{observation}
+
+Si $\psi$ es una f\'ormula con n-variables libres $x_{j1}, x_{j2}, \ldots, x_{jk}$ entonces $\psi$ es v\'alida en una interpretaci\'on $\mathcal{I}$ si y s\'olo si $\forall x_{j}, x_{j2}, \ldots x_{jk} $ $\psi$ es un enunciado valido en $\mathcal{I}$ (clausura universal de $\psi$)
+
+\end{observation}
+
+\begin{example}
+
+Sea $\mathcal{L} = \{ = , \mathcal{F}^2 \}$
+
+Sea $\psi : \exists x_2 \; \mathcal{F}^2(x_2, x_2) = x_1$
+
+Sea $\mathcal{I}_1 = (\mathbb{Z}, +)$
+
+$\psi$ se interpreta $\iff$ $\exists x_2 \; 2 \times x_2 = x_1$
+
+$\psi(x_1)$ es v\'alido en $\mathcal{I}$ $\iff$ "$x_1$ es par"
+
+Sea $\mathcal{L}$ $\exists x_2 \; (\mathcal{F}^2(x_2, x_2) = x_1 \land \mathcal{F}^2(x_2, x_2) = x_3)$
+
+Variables libres de $\mathcal{L} = \{ x_2, x_3\}$, $\mathcal{L} = \{ x_2, x_3\}$
+
+$(a, b)$ satisface a $\mathcal{L}$ $\iff$ a y b son pares.
+
+\end{example}
+
+\begin{definition}
+
+Sea $\mathcal{L}$ un lenguaje de primer orden, sea $\psi = \psi (x_1, x_2, \ldots, x_n)$ una f\'ormula de $\mathcal{L}$ cuyas variables libres son $x_1, x_2, \ldots, x_n$. Si $\mathcal{L}$ con dominio $\mathcal{D}$, diremos que $\psi$ define o expresa el siguiente subconjunto de $\mathcal{D}^n = \underbrace{D \times D \times \ldots \times D}_{\text{n veces}}$.
+
+$A = \{(d_1, d_2, \ldots, d_n)\} \in \mathcal{D}^n / (d_1, d_2, \ldots, d_n) \text{ satisface a }\psi \}$
+
+En general, un subconjunto de $A \subseteq \mathcal{D}^n$ se dice expresable o definible si existe una f\'ormula $\psi$ con n-variables libres que exprese a $A$
+
+\end{definition}
+
+\begin{example}
+
+\begin{enumerate}
+	\item $\emptyset$ es expresable. Sea $\mathcal{L}(x_1, x_2, \ldots, x_n)$ cualquier f\'ormula con n-variables libres y sea $\psi = (\lambda \land \neg \lambda)$
+	\item $\mathcal{D}^n$ es expresable por $\psi = (\lambda \lor \neg \lambda)$
+	\item $\mathcal{L} = \{ \mathcal{F}^2, = \}$ $\mathcal{I} = (\mathbb{Z}, +)$
+	
+	Pares es expresable por $\exists x_2 \; \mathcal{F}^2(x_2, x_2) = x_1$
+	
+	Si $A = \{ x \in \mathbb{Z} / \exists y = 3 \times y \}$
+	
+	$A$ es expresable por $\exists x_2 \; \mathcal{F}^2(x_2, \mathcal{F}^2(x_2, x_2))$
+	
+	Si $A = \{ x \in \mathbb{Z} / x \mod 1 (3)\}$
+	
+	Si $\alpha_1 : \mathcal{F}^2(x_1, x_1) = x_1$
+	
+	$\alpha_1$ expresa al $\{0\}$
+	
+	Si $\alpha_2 : \exists x_1 \; \mathcal{F}^2(x_1, x_2) = x_3$
+	
+	$\alpha_2$ expresa $\mathbb{Z} \times \mathbb{Z}$
+	
+\end{enumerate}
+
+\end{example}
+
+\begin{definition}
+
+Sea $\psi$ un lenguaje de primer orden. Diremos que la f\'ormula $\psi$ es \textbf{l\'ogicamente v\'alida} o \textbf{universalmente v\'alida}. Si $\psi$ es v\'alida en toda interpretaci\'on.
+
+\end{definition}
+
+\begin{example}
+
+$\forall x_1 (\psi \rightarrow \psi)$
+
+\end{example}
+
+\begin{definition}
+
+Una f\'ormula $\psi$ se dice \textbf{satisfacible} si existe una interpretaci\'on $\mathcal{I}$ con dominio $\mathcal{D}$ y una sucesi\'on $\mathcal{S}$ que satisface a $\psi$
+
+\end{definition}
+
+\begin{definition}
+
+Una \textbf{teor\'ia} es un conjunto de enunciados de $\mathcal{L}$
+
+\end{definition}
+
+\begin{example}
+
+\begin{enumerate}
+	\item $\mathcal{L} = \{ \mathcal{P}^{2}\}$  T = "Teor\'ia de las relaciones de equivalencia"
+
+$T = \{ \forall x_1 \; \mathcal{P}^2(x_1, x_1)\}, \forall x_1, \forall x_2 (\mathcal{P}^2(x_1, x_2) \rightarrow \mathcal{P}^2(x_2, x_1)), \forall x_1, \forall x_2, \forall x_3 (\mathcal{P}^2(x_1, x_2) \land \mathcal{P}^2(x_2, x_3) \rightarrow \mathcal{P}^2(x_1, x_3))$
+
+	\item Teoria de Grupos: $\mathcal{L} = \{ \mathcal{F}^2, \subset, = \}$ T = $\{ \psi_1, \psi_2, \psi_3 \}$
+	
+$\psi_1 = \forall x_1, \forall x_2, \forall x_3 \; \mathcal{F}^2(x_1, \mathcal{F}^2(x_2, x_3))$
+
+$\psi_2 = \forall x_1 (\mathcal{F}^2(x_1, c) = x_1 \land \mathcal{F}^2(\mathcal{F}^2(x_1, x_2), x_3) \land \mathcal{F}^2(c_1, x_1) = x_1)$
+
+$\psi_3 = \forall x_1 \exists x_2( \mathcal{F}^2(x_1, x_2) = c \land \mathcal{F}^2(x_2, x_1) = c)$
+\end{enumerate}
+
+\end{example}
+
+\begin{definition}
+
+Data una teor\'ia T de un lenguaje $\mathcal{L}$, un modelo de T es una interpretaci\'on $\mathcal{I} / V_I(\psi) = 1 \; \forall \psi \in T$
+
+\end{definition}

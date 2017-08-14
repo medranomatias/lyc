@@ -1,0 +1,160 @@
+\section{Clase 01}
+
+\begin{definition}
+Sea conjunto X y \relacion una relaci\'on binaria de a \relacion b. \relacion es 
+de \textbf{equivalencia} si se verifica que:
+
+\begin{enumerate}
+\item reflexiva \cforall x, x \relacion x
+\item simetrica \cforall x, y, x \relacion y \then y \relacion x
+\item transitiva \cforall x, y, z, x \relacion y y \relacion z \then x
+\relacion z
+\end{enumerate}
+
+\end{definition}
+
+\begin{theorem}
+Si dos elementos son equivalentes a un tercero, entonces tiene los mismos 
+elementos equivalentes:
+\hfill \break
+\cforall x, y, \cexists u, x \relacion u \cland y \relacion u \then \cforall z
+(x \relacion z \ciff y \relacion z)
+\end{theorem}
+
+\begin{proof}
+Como y \relacion u entonces de 2*  se obtiene u \relacion y, como x \relacion u
+y u \relacion y por 3* se obtiene x \relacion y. Nuevamente, por 2* se deduce
+que tambien y \relacion x.
+\hfill \break
+Sea z arbitrario, si x \relacion z, cada y \relacion x por 3* se obtiene y
+\relacion z. Si y \relacion z, como x \relacion y entonces x \relacion z. 
+\end{proof}
+
+\subsection{Convenci\'on} 
+
+Notaremos \cN al conjunto de naturales  
+ 
+\subsection{Principio de inducci\'on completa}
+ 
+Sea P(n) una proposici\'on sobre \cN tal que: 
+
+\begin{enumerate}
+  \item P(0) es verdadera
+  \item Si P(k) es verdadero \cforall k \< n \then P(n) es verdadera  
+\end{enumerate} 
+
+\subsection{Concepto de Lenguajes Formales}
+ 
+Sea A un conjunto no vac\'io llamado alfabeto: 
+
+\begin{definition}
+Una expresi\'on sobre A es una sucesi\'on finita de elementos de A. Notaremos con A\supi{*} al conjunto de todas las expresiones sobre A. Es
+decir E \cin A\supi{*} al conjunto de todas las expresiones sobre
+A. Es decir E \cin A\supi{*} \ciff \cexists n \cin
+\cN y elementos a\subi{0}, a\subi{1}, \ldots, a\subi{n}
+tal que E = a\subi{0}, a\subi{1}, \ldots, a\subi{n}.
+\end{definition}
+
+\begin{definition}
+Si E \cin A\supi{*} se define a \textbf{longitud} de E al n\'umero \length(E) = n +
+1
+\end{definition}
+
+\begin{definition}
+Si A es un conjunto no vacio y E,F \cin A\supi{*} se define E.F la
+expresi\'on siguiente. Si E = a\subi{0}, a\subi{1}, \ldots,
+a\subi{n} y F = b\subi{0}, b\subi{1}, \ldots , b\subi{n}
+
+E.F = a\subi{0}, a\subi{1}, \ldots, a\subi{n}, b\subi{0},
+b\subi{1}, \ldots , b\subi{n} 
+
+E.F se denomina la \textbf{concatenaci\'on} de E con F. 
+
+\end{definition}
+
+\begin{observation}
+\length(EF) = \length(E) + \length(F). En general, E.F \cneq F.G.
+\end{observation}
+
+\begin{definition}
+Si A es un conjunto no vac\'io y E,F  \cin A\supi{*}. Diremos que F
+es una secci\'on inicial de E si \cexists G tal que F.G = E
+\end{definition}
+
+\begin{example}
+Si A es el alfabeto de la lengua espa\~nola. E = CASAMIENTO, F = CASA 
+\end{example}
+
+\begin{proposition}
+Si A es un alfabeto y E,F,G y H \cin A\supi{*}, verifican E.F =
+G.H, entonces E es secci\'on inicial de G o G es secci\'on inicial de E. M\'as a\'un, si
+\length(E) = \length(G) entonces E = G. Si \length(E) \< \length(G), entonces E es una secci\'on inicial
+de G y si \length(E)\(>\) \length(G) entonces G es una secci\'on inicial de E. 
+\end{proposition}
+
+\begin{proof}
+Supongamos primero que \length(E) \(>\) \length(G) . Usaremos el principio de inducci\'on.  
+
+Sea P(n): Si E,F,G,H son expresiones tales que \length(E) = n, n \(>\) \length(G) y E.F = G.H entonces G es secci\'on inicial de E. (nota: las expresiones son iguales cuando tienen la misma longitud y misma expresi\'on). 
+
+Caso Base: P(0) Como el antecedente es falso (0 \(>\) \length(G)) por lo tanto la expresi\'on es verdadera.
+
+Paso Inductivo: Supongamos que, por hip\'otesis inductiva, que P(n) es verdadera y probemos que P(n + 1). Sean E,F,G,H \cin A\supi{*} tales que \length(E) \(>\) \length(G) y E.F = G.H. E = a\subi{0}, a\subi{1}, \ldots, a\subi{n}, luego (a\subi{0}, a\subi{1}, \ldots, a\subi{n}).F = (a\subi{0},b\subi{1}, \ldots, b\subi{k}).H y k \< n luego por simplificaci\'on (a\subi{1}, \ldots, a\subi{n}).F = (b\subi{1}, \ldots, b\subi{k}).H. Aqu\'i vemos que tenemos dos expresiones completamente nuevas, deja de ser E y G. Las llamamos E' y G':
+
+E' = (a\subi{1}, \ldots, a\subi{n})
+
+G' = (b\subi{1}, \ldots, b\subi{k}) 
+
+Entonces nos queda como E'F = G'H y \length(E') = n \(>\) \length(G') = k. Por hip\'otesis
+inductiva, vale P(n), lo que implica que G' es secci\'on inicial de E' y luego E' = G'K  con K \cin A\supi{*}.
+
+Entonces a\subi{0} E' = a\subi{o} G'K \then E = G.K
+
+Si \length(E) = \length(G) \then E = G (ejercicio)
+  
+Si \length(E) \< \length(G)  la prueba es an\'aloga al primer caso.
+
+\end{proof}
+
+\begin{definition}
+Sea A un alfabeto. Un lenguaje \(\lambda\) sobre A es un subconjunto no vac\'io de
+A\supi{*}, es decir, \(\lambda\) \cneq \cemptyset y \(\lambda\)
+\csubseteq A\supi{*}
+\end{definition}
+
+\begin{example}
+\begin{enumerate}
+  \item A es el alfabeto que consiste en letras \{a, \ldots, z\} y \(\lambda\) es el conjunto de palabras que aparecen en el diccionario de la Real Academia Espa\~nola.
+  \item A es el alfabeto que consiste en los numeros \{0, \ldots, 9\} y \(\lambda\) =   \{ E \cin A\supi{*} / E representa un n\'umero natural \}
+  \item E \csubseteq \(\lambda\) \ciff \length(E) = 1 \'o \length(E) $>$ 1 y el primer s\'imbolo de E debe ser diferente de 0.
+  \item Construimos un alfabeto A (finito) y un lenguaje \(\lambda\) de modo tal que represente a los n\'umeros racionales. A = \{0, 1, 2, 3, \ldots ,  9\} \ccup \{,\} \ccup \{ \cland \}.
+  \item Sea A = \{A, T, C, G \} \(\lambda\) = \{ E \cin A\supi{*} / E representa una cadena de genes \} (el lenguaje del ADN).
+\end{enumerate} 
+\end{example}
+
+\subsection{El lenguaje de la l\'ogica proposicional}
+
+A = \{ p\subi{0}, p\subi{1}, \ldots , p\subi{n}, \ldots \} \ccup \{ \cland, \clor, \then, \cneg \} \ccup \{ (, ) \}
+
+Para cada i \cin \cN, p\subi{i} se denomina variable. Los elementos
+\{ \cland, \clor, \then, \cneg \} se denominan conectivos y los elementos de tercer conjunto par\'entesis
+\begin{center}
+\begin{tabular}{ l | c }
+  \hline			
+	\clor	& \textit{disyunci\'on}		\\
+	\cland	& \textit{conjunci\'on}		\\
+	\then	& \textit{implicaci\'on}	\\
+	\cneg	& \textit{negaci\'on}		\\
+  \hline  
+\end{tabular}
+\end{center} 
+El lenguaje asociado a este alfabeto se define de la siguiente modo. Notaci\'on, con $\mathcal{F}$ a dicho lenguaje. Los elementos de $\mathcal{F}$ se definen  del siguiente modo y se llamaran \textbf{f\'ormulas} de acuerdo a las siguientes reglas:
+
+\begin{enumerate}
+  \item Las variables p\subi{i} son f\'ormulas para \cforall i \cin \cN
+  \item Si \(\alpha\) \cin $\mathcal{F}$ entonces \cneg \(\alpha\) \cin F. 
+  \item Si \(\alpha\) y \(\beta\) \cin $\mathcal{F}$ entonces (\(\alpha\) \clor
+  \(\beta\)) \cin $\mathcal{F}$ -asi con cada uno de los conectores-
+  \item Una expresi\'on es formula si y s\'olo si se la obtiene en un n\'umero finito
+  de pasos usando las reglas de 1, 2 y/o 3
+\end{enumerate} 

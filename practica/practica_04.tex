@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=1.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{amsmath}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\usepackage{tabto}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definicion}
+\newtheorem{observation}{Observacion}
+
+
+
+\begin{document}
+
+\section{Clase 02}
+
+\begin{definition}
+Una interpretacion de un lenguaje de primer orden $\mathcal{L}$. $\mathcal{L} = <\mathcal{C}, \mathcal{F}, \mathcal{P}>$ es $\mathcal{I} = <\mathcal{U}_i, \mathcal{C}_i, \mathcal{F}_i, \mathcal{P}_i>$ con $\mathcal{U}_i$ un conjunto. 
+\end{definition}
+
+Para cada simbolo $c \in \mathcal{C}$, un elemento $c_i \in \mathcal{C}_i$ 
+
+Para cada simbolo $f \in \mathcal{F}$ una funcion $f_i \in \mathcal{F}_i$. 
+
+Para cada simbolo $p \in \mathcal{P}$ una relacion $p_i \in \mathcal{P}_i$
+
+Ejemplo:
+
+$\mathcal{C} = <\emptyset, \emptyset, \{\mathcal{P}\}>$ 
+
+$\forall x \; \exists y \; \mathcal{P}(x, y) = \psi$
+
+$\mathcal{I} = <\mathds{Z}, \mathcal{P}_i = \leq \;>$
+
+$\psi = \forall x \in \mathds{Z}, \; \exists y \in \mathds{Z} / x \leq y$
+
+$\psi$ interpretada en $\mathds{Z}, \leq$ es cierta.
+
+\begin{observation}
+En nuestro caso nos preguntamos al respecto de formulas \textit{sin} \textit{variables libres} (las llamamos enunciados o sentencias) 
+\end{observation}
+
+\begin{definition}
+Sea $\psi$ un enunciado e I es una interpretacion de $\mathcal{L} = <\mathcal{C}, \mathcal{F}, \mathcal{P}>$. Si $\psi$ es atomica $\psi = P(t_1, \ldots, t_k)$ como $\psi$ es enunciado no hay variables de $t_i$.
+
+\[
+	t_i = f(c_i, \ldots, f(c_k))	
+\]
+
+\[
+	c \in \mathcal{C} \rightarrow c_i \in \mathcal{C}_i \;
+	f \in \mathcal{F} \rightarrow f_i \in \mathcal{F}_i \;
+	f(c_1, f(c_1, c_2))_i \rightarrow f_i((c_1)_i, f_i((c_1)_i, (c_2)_i))_i
+\]
+\end{definition}
+
+Ejemplo 
+
+$\mathcal{L}$ = $<\{c\}, \{f\}, \{p\}>$ $\mathcal{I} = <\Re, 0, f(x, y) = x^2 + y>$
+
+$\underbrace{f(c, f(c, c))_i}_{t_1} = f_i(0, f_i(0,0)) = f_i(0, 0^2 + 0) = f_i(0, 0) = 0$
+
+Decimos que $\psi$ es cierta en $\mathcal{I}$ si $((t_1)_I, (t_2)_I, \ldots (t_n)_I) \in \mathcal{P}_i \subseteq \mathcal{U}^{K}_{I}$. 
+
+$v_I(\psi) = 1 $ y $v_I(\psi) = 0$
+
+Si $\psi = \varphi * \eta$
+
+$v$
+
+
+Si $v(\ell) = v(\psi) \circ v(\eta)$
+
+
+
+\end{document}
+
+

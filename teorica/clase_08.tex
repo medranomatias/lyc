@@ -1,0 +1,132 @@
+\section{Clase 08}
+
+\subsection{Modus Ponens}
+$\;$
+
+$P, (P \rightarrow Q) \vdash Q$ \footnote{$\vdash$: puede inferir}
+
+\subsection{Generalizaci\'on}
+$\;$
+
+$P \vdash \forall x_i \; P$
+
+$P(x_j) \vdash \forall x_i \; P(x_i)$
+
+\subsection{Axioma de la l\'ogica de primer orden}
+
+Consideremos dos tipos de axiomas:
+
+Axiomas de tipo I:
+
+\begin{enumerate}
+	\item $(\alpha \rightarrow (\beta \rightarrow \alpha))$
+	\item $((\alpha \rightarrow (\beta \rightarrow \gamma))	\rightarrow ((\alpha \rightarrow \beta)\rightarrow(\alpha \rightarrow \gamma)))$
+	\item $(\neg \alpha \rightarrow \neg \beta) \rightarrow ((\neg \alpha \rightarrow \neg \beta) \rightarrow \alpha)$
+\end{enumerate}
+
+Axiomas de tipo II: 
+
+\begin{enumerate}
+	\item $(\forall x_j (\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow \forall x_j \; \beta))$ si $x_j$ no es libre en $\alpha$
+	\item $(\forall x_j (\alpha \rightarrow \alpha(x_j / t))$ donde t es un t\'ermino libre para $x_j$
+\end{enumerate}
+
+\begin{definition}
+
+Una \textbf{prueba} o \textbf{demostraci\'on} es una secuencia finita $x_1, x_2, \ldots, x_n$ de f\'ormulas que verifican la siguiente condici\'on: si $1 \leq i \leq n$ entonces $x_i$ verifica una y solo una de las siguientes condiciones:
+
+\begin{enumerate}
+	\item $x_i$ es un axioma
+	\item Existen dos eslabones anteriores $j, k < i \; / \; x_k = (x_j \rightarrow x_i), \; x_j, \; \underbrace{x_j \rightarrow x_i}_{x_k}, \; x_i$ en donde $x_i$ se obtiene por \textbf{modus ponens}
+	\item Existe un \'indice $j < i$ y una variable $x_k \; / \; x_i = \forall x_k, \; \forall x_k \; x_j$ se obtienen por generalizaci\'on.
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+
+Una f\'ormula se dice \textbf{demostrable} o \textbf{probable} si existe una prueba o demostraci\'on $x_1, x_2, \ldots, x_n$ tal que $x_n = \alpha$
+
+\end{definition}
+
+\begin{theorem}
+
+Si $\alpha$ es demostrable, entonces $\alpha$ es l\'ogicamente v\'alida.
+
+La prueba del teorema se efect\'ua probando los siguientes hechos:
+
+\begin{enumerate}
+	\item Los axiomas son l\'ogicamente v\'alidos
+	\item Si $\alpha$ es l\'ogicamente v\'alida y $(\alpha \rightarrow \beta)$ es l\'ogicamente v\'alida, entonces $\beta$ es l\'ogicamente v\'alida.
+	\item Si $\alpha$ es l\'ogicamente v\'alida, entonces $\forall x_{\alpha}$ es logicamente v\'alida
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+
+\textbf{Prueba A:}
+
+Veamos por ejemplo que $(\alpha \rightarrow (\beta \rightarrow \alpha))$ es l\'ogicamente v\'alida. Fijemos una interpretaci\'on $\mathcal{I}$ con universo $\mathcal{D}$ 
+
+Sea $S$ una sucesi\'on con valores en el universo $\mathcal{D}$. Veamos que $S$ satisface a $(\alpha \rightarrow (\beta \rightarrow \alpha))$. Sino \textbf{$S$ satisface a $\alpha$} y no satisface a $(\beta \rightarrow \alpha)$. Luego $S$ satisface a $\beta$ y \textbf{no satisface a $\alpha$}, lo que es imposible.
+
+La prueba de los axiomas 2 y 3 es an\'aloga. Veamos que el axioma $\forall x_j (\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow \forall x_j \; \beta)$ es l\'ogicamente v\'alido, donde $x_j$ no aparece libre en $\alpha$
+
+Sea $\mathcal{I}$ una interpretaci\'on con universio $\mathcal{D}$ y sea $\mathcal{S}$ una sucesi\'on con valores en $\mathcal{D}$
+
+Supongamos que la sucesi\'on $S$ no satisface a dicho axioma. Luego $S$ satisface a $\forall x_j (\alpha \rightarrow \beta)$ y $S$ no satisface $(\alpha \rightarrow \forall x_j \; \beta)$. Por lo tanto $S$ debe satisfacer a $\alpha$ y $S$ no satisface a $\forall x_j \; \beta$
+
+Luego existe una sucesi\'on $\hat{S}$ tal que $S_{k} = \hat{S}_k$ si $k \neq j$ y $\hat{S}$ no satisface a $\beta$. 
+
+Es la sucesi\'on $S = (S_0, S_1, \ldots, S_{j -1}, \underbrace{S_j}_{c}, S_{j + 1}, \ldots)$
+
+Por otro lado $\hat{S}$ debe satisfacer a $(\alpha \rightarrow \beta)$. 
+
+$S$ y $\hat{S}$ coinciden en todas los lugares salvo en el lugar $j$
+
+Como $x_j$ no es libre en $\alpha$ y $S$ satisface a $\alpha$. Entonces $\hat{S}$ debe satisfacer a $\alpha$. Como $\hat{S}$ satisface a $(\alpha \rightarrow \beta)$ entonces $\hat{S} $ debe satisfacer a $\beta$, absurdo.
+
+De forma an\'aloga se prueba que el axioma 5 es l\'ogicamente v\'alido. (ejercicio)
+
+Sugerencia:
+
+$\forall x_j \; \alpha \rightarrow (\alpha(x_j(t)))$. Si $t$ es libre para $x_j$ hacer inducci\'on sobre $C(\alpha)$
+
+\end{proof}
+
+\begin{observation}
+Si no se pide como requisito en el axioma 4 que $x_j$ no es libre en $\alpha$ dicho axioma, no es l\'ogicamente v\'alido
+\end{observation}
+
+\begin{example}
+
+$\mathcal{L} = \{ =, c\}$ $\alpha = (x_j = c) = \beta$ $(\forall x_j (\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow \forall x_j \alpha))$
+
+$\alpha \rightarrow \forall x_j \beta$ es $(x_j = c \rightarrow \forall x_j \; x_j = c)$. 
+
+\end{example}
+
+Sea una sucesi\'on $S_j = 3$, satisface el antecedente pero no satisface el consecuente. $S$ no satisface la f\'ormula $\forall x_{j} = c$
+
+La noci\'on de l\'ogicamente v\'alido es \textbf{cerrado} por las reglas de inferencia. Si $\alpha$ es l\'ogicamente v\'alida, entonces $\beta$ es l\'ogicamente v\'alida y si $\alpha$ es l\'ogicamente v\'alido, entonces $\forall x_j \; \alpha$ es l\'ogicamente v\'alida.
+
+De esto se desprende que $x_1, x_2, \ldots, x_n$ es una prueba o demostraci\'on, entonces $\forall \;1 \leq i \leq n$
+
+$x_i $ es l\'ogicamente v\'alido. En particular $x_n$ es l\'ogicamente v\'alido. Lo que prueba que toda f\'ormula demostrable, es l\'ogicamente v\'alida
+
+\textbf{Teorema de completitud de Godel}. Toda f\'ormula l\'ogicamente v\'alida es demostrable.
+
+Ejemplo $(\alpha \rightarrow \alpha)$
+
+Veamos que $(\alpha \rightarrow \alpha)$ es demostrable. 
+
+Axioma 1-. $(\alpha \rightarrow (\beta \rightarrow \alpha))$
+Axioma 2-. $(\alpha \rightarrow (\beta \rightarrow \alpha)) \rightarrow (\alpha \rightarrow \beta) \rightarrow (\alpha \rightarrow))$
+
+Reemplazamos en el Axioma 1 a $\beta$ por $(\alpha \rightarrow \alpha)$
+Reemplazamos en el Axioma 2 a $\beta = \alpha \rightarrow \delta$ y $\delta = \alpha$. $\underbrace{(\alpha \rightarrow ((\alpha \rightarrow \alpha) \rightarrow \alpha))}_{\textbf{Axioma 1}} \rightarrow ((\alpha \rightarrow (\alpha \rightarrow \alpha)) \rightarrow (\alpha \rightarrow \alpha))$
+
+Por MP y obtenemos $(\underbrace{(\alpha \rightarrow (\alpha \rightarrow \alpha))}_{\text{Axioma 1}} \rightarrow (\alpha \rightarrow \alpha))$
+
+Por MP y obtenemos $(\alpha \rightarrow \alpha)$

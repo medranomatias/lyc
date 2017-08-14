@@ -1,0 +1,160 @@
+\documentclass{amsart}
+
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=1.5cm]{geometry}
+
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{amsmath}
+\usepackage{amssymb,latexsym}
+\usepackage{graphicx}
+\usepackage{tabto}
+\usepackage{subfiles}
+
+\newtheorem*{theorem}{Teorema}
+\newtheorem*{lemma}{Lema}
+\newtheorem*{definition}{Definici\'on}
+\newtheorem*{observation}{Observaci\'on}
+\newtheorem*{proposition}{Proposici\'on}
+\newtheorem*{convencion}{Convenci\'on}
+\newtheorem*{colorario}{Colorario}
+\newtheorem*{aplicacion}{Aplicaci\'on}
+
+
+
+\usepackage{symbols/symbol}
+\usepackage{symbols/relation}
+\usepackage{symbols/set}
+\usepackage{symbols/logical}
+\usepackage{symbols/other}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+%sudo apt-get install xzdec
+%tlmgr init-usertree
+%tlmgr install xzdec
+%tlmgr install fontspec
+%\usepackage{fontspec}
+\usepackage{mdframed} % Add easy frames to paragraphs
+\usepackage{lipsum} % For dummy text
+\usepackage{xcolor}
+\usepackage{xparse} % Add support for \NewDocumentEnvironment
+\definecolor{graylight}{cmyk}{.30,0,0,.67} % define color using xcolor syntax
+
+\newmdenv[ % Define mdframe settings and store as leftrule
+  linecolor=graylight,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep,
+  skipbelow=\topsep
+]{leftrule}
+
+\NewDocumentEnvironment{example}{O{\textbf{Ejemplo:}}} % Define example environment
+{\begin{leftrule}\noindent\textcolor{graylight}{#1}\par}
+{\end{leftrule}}
+
+\NewDocumentEnvironment{exercise}{O{\textbf{Ejercicio:}}} % Define example environment
+{\begin{leftrule}\noindent\textcolor{graylight}{#1}\par}
+{\end{leftrule}}
+
+\NewDocumentEnvironment{problem}{O{\textbf{Problema:}}} % Define example environment
+{\begin{leftrule}\noindent\textcolor{graylight}{#1}\par}
+{\end{leftrule}}
+
+\begin{document}
+
+%\tableofcontents
+
+\newpage
+
+\subfile{teorica/clase_01.tex}
+
+\newpage
+
+\subfile{teorica/clase_02.tex}
+
+\newpage
+
+\subfile{teorica/clase_03.tex}
+
+\newpage
+
+\subfile{teorica/clase_04.tex}
+
+\newpage
+
+\subfile{teorica/clase_05.tex}
+
+\newpage
+
+\subfile{teorica/clase_06.tex}
+
+\newpage
+
+\subfile{teorica/clase_07.tex}
+
+\newpage
+
+\subfile{teorica/clase_08.tex}
+
+\newpage
+
+\subfile{teorica/clase_09.tex}
+
+\newpage
+
+\subfile{teorica/clase_10.tex}
+
+\newpage
+
+\subfile{teorica/clase_11.tex}
+
+\newpage
+
+\subfile{teorica/clase_12.tex}
+
+\newpage
+
+\subfile{teorica/clase_13.tex}
+
+\newpage
+
+\subfile{teorica/clase_14.tex}
+
+\newpage
+
+\subfile{teorica/clase_15.tex}
+
+\newpage
+
+\subfile{teorica/clase_16.tex}
+
+\newpage
+
+\subfile{teorica/clase_17.tex}
+
+\newpage
+
+\subfile{teorica/clase_18.tex}
+
+\newpage
+
+\subfile{teorica/clase_19.tex}
+
+\newpage
+
+\subfile{teorica/clase_20.tex}
+
+\newpage
+
+\subfile{teorica/clase_21.tex}
+
+\newpage
+
+\subfile{teorica/clase_22.tex}
+
+
+
+\end{document}

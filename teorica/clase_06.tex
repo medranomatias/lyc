@@ -1,0 +1,161 @@
+\section{Clase 06}
+
+\subsection{Sem\'antica del primer orden}
+
+\begin{convencion}
+
+Si $\mathcal{I}$ es una interpretaci\'on de un lenguaje de primer orden con igualdad $=$, si $\mathcal{D}$ es el dominio de $\mathcal{I}$ entonces
+
+\[
+	=_D \{ (x, x): x \in \mathcal{D}\}
+\]
+
+En donde $=_D$ es la interpretaci\'on del s\'imbolo $=$
+
+\end{convencion}
+
+
+
+\begin{example}
+
+Sea $\mathcal{L}$ un lenguaje con igualdad $=$ y un s\'imbolo de funci\'on binario $\mathcal{F}^2$. Sean $\psi_1$ y $\psi_2$ las siguientes f\'ormulas:
+
+\begin{align*}
+	\psi_1 &: \exists x_2 \mathcal{F}^2(x_1, x_2) = x_2	\\
+	\psi_2 &: \forall x_1 \psi_1
+\end{align*}
+
+Sea $\mathcal{I}$ la siguiente interpretaci\'on de $\mathcal{L}$: $\mathcal{D} = \mathbb{N}$, $\mathcal{F}^{2}_{D} = +$  Entonces:
+
+\begin{center}
+$\psi_1$ expresa $\exists x_2, x_1 + x_2 = x_2$ o $\exists x_2, x_1 = 0$ con lo cual $\psi_1$ es verdadero.
+
+$\psi_2$ expresa $\forall x_1, \exists x_2, x_1 = 0$ con lo cual $\psi_2$ es falso.
+\end{center}
+
+\end{example}
+
+
+El ejemplo anterior motiva a dos definiciones: interpretaci\'on de \textbf{t\'erminos} y de \textbf{f\'ormulas}.
+
+\begin{definition}
+
+Si $\mathcal{L}$ es un lenguaje de primer orden y sea $\mathcal{I}$ una interpretaci\'on de $\mathcal{L}$ con dominio $\mathcal{D}$. Sea $\mathcal{S} : \mathbb{N} \rightarrow \mathcal{D}$  una sucesi\'on. Asociamos a la sucesi\'on $\mathcal{S}$ una funci\'on $\mathcal{S}^{*}  \mathcal{S}^{*} : Term \rightarrow \mathcal{D}$ (en donde Term es el conjunto de los t\'erminos de $\mathcal{L}$)
+
+Sea $t \in Term$. Tenemos los siguientes casos:
+
+\begin{enumerate}
+	\item $t = x_j$,t es una variable, $\mathcal{S}^{*}(x_j) = \mathcal{S}_j = \mathcal{S}(j)$
+	\item $t = c$, t es una constante, $\mathcal{S}^{*}(c) = c_D$
+	\item $t = \mathcal{F}^k(t_1, t_2, \ldots, t_k)$ con $\mathcal{F}^k$ un s\'imbolo de funci\'on k-ario y $t_1, t_2, \ldots, t_k$ t\'erminos y definimos $\mathcal{S}^{*}(t) = \mathcal{F}^{R}_{D}(\mathcal{S}^{*}(t_1),$ $ \mathcal{S}^{*}(t_2), \ldots, \mathcal{S}^{*}(t_k))$
+\end{enumerate}
+
+\end{definition}
+
+\begin{example}
+
+Sea $\mathcal{L} = \{ \mathcal{F}^2, =\}$, $\mathcal{I} = (\mathbb{R}, \times, =)$ entonces la interpretaci\'on de t\'erminos es:
+
+Sea $\mathcal{S}_n = \frac{1}{2^n}, n \geq 0$  y $t = \mathcal{F}^2(\mathcal{F}^2(x_1, x_3), x_4)$ entonces:
+
+\begin{align*}
+	\mathcal{S}^{*}(t) &= \mathcal{F}^2(\mathcal{F}^2(\mathcal{S}^{*}(x_1), \mathcal{S}^{*}(x_3)), \mathcal{S}^{*}(x_4))		\\
+	\mathcal{S}^{*}(t) &= (\mathcal{S}^{*}(x_1) \times \mathcal{S}^{*}(x_3)) \times \mathcal{S}^{*}(x_4) \\
+	\mathcal{S}^{*}(t) &= \left( \frac{1}{2} \times \frac{1}{2^3} \right) \times \frac{1}{2^4} = \frac{1}{2^8}
+\end{align*}
+
+\end{example}
+
+\begin{definition}
+
+Sea $\mathcal{L}$ un lenguaje de primer orden, sea $\mathcal{I}$ una interpretaci\'on de $\mathcal{L}$ y sea $\mathcal{S} : \mathbb{N} \rightarrow \mathcal{D}$ una sucesi\'on donde $\mathcal{D}$ es el dominio de $\mathcal{I}$. Si $\psi$ es una f\'ormula de $\mathcal{L}$, diremos que $\mathcal{S}$ satisface $\psi$ si se verifica una y solamente una de las siguientes condiciones:
+
+\begin{enumerate}
+	\item Si $\psi$ es atomica, $\psi = \mathcal{P}^{n}(t_1, t_2, \ldots, t_n)$ con $\mathcal{P}{n}$ un s\'imbolo de relaci\'on n-ario  y $t_1, t_2, \ldots, t_n$ terminos de $\mathcal{L}$. $\mathcal{S}$ satisface $\psi \iff (\mathcal{S}^{*}(t_1), \ldots, \mathcal{S}^{*}(t_n)) \in \mathcal{P}^{n}_{D}$.
+	\item Si $\psi = \neg \beta$, con $\beta$ f\'ormula. $\mathcal{S}$ satisface $\psi \iff \mathcal{S} \text{no satisface} \beta$
+	\item Si $\psi = (\beta_1 \lor \beta_2)$, con $\beta_1$ y $\beta_2$ formulas. Entonces $\mathcal{S}$ satisface $\psi \iff \mathcal{S} \text{ satisface } \beta_1 \text{ o } \mathcal{S} \text{ satisface } \beta_2$
+	\item Si $\psi = (\beta_1 \land \beta_2)$, con $\beta_1$ y $\beta_2$ formulas. Entonces $\mathcal{S}$ satisface $\psi \iff \mathcal{S} \text{ satisface } \beta_1 \text{ y } \mathcal{S} \text{ satisface } \beta_2$
+	\item Si $\psi = (\beta_1 \rightarrow \beta_2)$ entonces $\mathcal{S}$ satisface $\psi \iff $ $\mathcal{S}$ no satisface a $\beta_1$ o $\mathcal{S}$ satisface $\beta_2$.
+	\item Si $\psi = \forall x_j \beta$ con $\beta$ formula $\mathcal{S}$ satisface $\psi \iff \mathcal{S}'$ satisface $\beta$ para cualquier sucesi\'on $\mathcal{S}'$ tal que $\mathcal{S}' = \mathcal{S}$ si $k \neq j$
+	\item Si $\psi = \exists x_j \beta$ entonces $\mathcal{S}$ satisface $\psi \iff$ existe una sucesion $\mathcal{S}'$ tal que $\mathcal{S}'$ satisface a $\beta$ y $\mathcal{S}'(k) = \mathcal{S}(k) \forall k \neq j$ 
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+
+Otra forma de enunciar f y g:
+
+$\mathcal{S} = (d_0, d_1, \ldots, d_j, d_{j + 1}, \ldots, d_n, \ldots$
+
+$\mathcal{S}$ satisface $\forall x_j \beta \iff $ las sucesiones del tipo $(d_0, d_1, \ldots, d_{j-1}, c, d_{j+1}, \ldots, d_n, \ldots)$ satisface $\beta$ siendo $c \in D$ arbitrariamente y $\mathcal{S}$ satisface $\exists x_j \beta \iff$ la sucesi\'on del tipo $(d_0, d_1, \ldots, d_{j-1}, c, d_{j+1}, \ldots, d_n, \ldots)$ satisface $\beta$ para algun $c \in D$
+
+\[
+Notacion 
+\begin{cases}
+	V_s(\psi) = 1 \iff &\mathcal{S}\text{ satisface } \psi \\
+	V_s(\psi) = 0 \iff &\mathcal{S}\text{ no satisface } \psi
+\end{cases}
+\]
+
+\end{definition}
+
+\begin{example}
+
+Sea $\mathcal{L} = \{ \mathcal{P}^2\}$. Sea $\mathcal{I}$ la siguiente interpretaci\'on: $\mathcal{D} = \mathbb{Q} = (\text{n\'umeros racionales}) \; \mathcal{P}^2 = \{ (x \times y) \in \mathbb{Q} \times \mathbb{Q} \; / x < y \}$
+
+Sea $\psi: \forall x, \; \exists x_2 \; p^2 (x, x_3) \land p^2(x_3, x_2)$. En $\psi$ $x_1$ y $x_2$ son ligadas y $x_3$ es libre.
+
+Sea $S_n = \frac{1}{2^n}$ con $n \geq 0$
+
+¿$\mathcal{S}$ satisface $\psi$? 
+
+$\mathcal{S}$ satisface $\psi \iff \left( 1, c, \frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \ldots \right)$
+
+Satisface $\exists x_2 \; (p^2(x_1, x_3) \iff p^2(x_3, x_2))$ con un $c \in \mathbb{Q}$ arbitrario.
+
+$\exists x_2 (x_1 < \underbrace{x_3}_{\frac{1}{8}}  \land \underbrace{x_3}_{\frac{1}{8}} < x2)$
+
+Luego $\mathcal{S}$ satisface $\psi \iff $ para alg\'un $c \in \mathbb{Q}$. Existe un $d \in \mathbb{Q} \/ c < \frac{1}{8} \land \frac{1}{8} < d$
+
+Si $c = 1$ \textbf{la condici\'on no se cumple}. Luego $\mathcal{S}$ no satisface $\psi$
+
+\end{example}
+
+\begin{proposition}
+
+Sea $\mathcal{L}$ un lenguaje de primer orden, sea $\mathcal{I}$ una interpretaci\'on de $\mathcal{L}$ con universo $\mathcal{D}$. Sea $\psi$ una f\'ormula de $\mathcal{L}$ cuyas variables libres est\'a contenida en el conjunto $\{x_1, x_2, \ldots, x_k\}$.
+
+Si $\mathcal{S}$ y $\mathcal{S}'$ dos sucesiones con variables en $\mathcal{D}$ tales que $\mathcal{S}_{j\tau} = \mathcal{S}'_{j\tau} \forall 1 \leq \tau \leq k$
+
+Entonces $\mathcal{S}$ satisface a $\psi \iff $ $\mathcal{S}$' satisface a $\psi$
+
+\end{proposition}
+
+\begin{proof}
+
+Hacemos inducci\'on en la complejidad de $\psi : \mathcal{C} = $ n de conectivos.
+
+Caso Base $\mathcal{C}(\psi) = 0$. Luego $\psi$ es at\'omica. Es decir $\psi = p^n(t_1, t_2, \ldots, t_n)$ con $t_1, t_2, \ldots, t_n$ t\'erminos y $p^n$ un s\'imbolo de predicado n-ario
+
+$\mathcal{S}$ satisface $\psi \iff \left(\mathcal{S}^*(t_1), \mathcal{S}^*(t_2), \ldots, \mathcal{S}^*(t_n) \right) \in P^{n}_{d} \left[ P^{n}_{d} \subseteq D^{n}_{d} \right]$
+
+An\'alogamente $\mathcal{S}$' satisface $\psi \iff \left(\mathcal{S}'^*(t_1), \mathcal{S}'^*(t_2), \ldots, \mathcal{S}'^*(t_n) \right) \in P^{n}_{d}$
+
+Resulta que $\mathcal{S}'^*(t_j) = \mathcal{S}^*(t_j) \forall 1 \leq j \leq n$ pues las variables de los t\'erminos $t_j \subseteq \{x_{j1}, \ldots, x_{jk}\}$
+
+Luego el resultado vale para las f\'ormulas at\'omicas. Es inmediato ver que el resultado es variable si $\psi = \neg \beta$ o $\psi = (\beta_1 \bullet \beta_2)$ con $\beta, \beta_1, \beta_2$ f\'ormulas usando la hip\'otesis inductiva y la definici\'on inductiva de satisfacibilidad.
+
+Si $\psi = \forall x_{\ell} \beta$ con $\beta$ formula
+
+Supongamos que $\mathcal{S}$ satisface a $\psi$. Si $\mathcal{S}$' no satisface a $\psi$. Luego existe una sucesi\'on A / $A(x_j) = S'(x_j) $ si $j \neq \ell$ y A no satisface $\beta$. Las variables libres de $\psi \subseteq$ variables libres de $\beta$. $\psi \subseteq \{x_{j1}, x_{j2}, \ldots, x_{jk} \}$
+
+Por hip\'otesis inductiva se sigue que la sucesi\'on $\mathcal{S}$' no satisface a $\beta$ y $\mathcal{S}$ tiene que satisfacer a $\beta$. Lo cual es imposible ya que $\beta$ es de complejidad menor lo que es imposible.
+
+El caso $\psi = \exists x_{\ell} \; \beta$ se prueba de manera an\'aloga.
+
+\end{proof}
+
+\subsection{Corolario}
+
+Si $\mathcal{L}$ es un lenguaje de primer orden, $\mathcal{I}$ una interpretaci\'on de $\mathcal{L}$, con dominio $\mathcal{D}$ y $\psi$ un enunciado de $\mathcal{L}$. Entonces si una sucesi\'on $\mathcal{S}$ satisface a $\psi$ entonces $\mathcal{S}$' satisface a $\psi$ para cualquier sucesi\'on $\mathcal{S}$'

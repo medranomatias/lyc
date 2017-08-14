@@ -1,0 +1,77 @@
+\section{Clase 12}
+
+\begin{theorem}
+Sea $\mathcal{L}$ un lenguaje de primer orden y $T$ un conjunto de f\'ormulas. Supongamos que $T$ verifica las siguientes condiciones:
+
+\begin{enumerate}
+    \item $\mathcal{L}$ es suficiente para $T$
+    \item $T$ es consistente
+    \item $T$ es completo
+    \item $A \times \mathcal{L} \subseteq T$
+\end{enumerate}
+
+Entonces existe una interpretaci\'on $\mathcal{I}$ de $\mathcal{L}$ que satisface a $T$.
+\end{theorem}
+
+\begin{proof}
+Sea $\mathcal{I}$ la siguiente interpretaci\'on:
+
+\begin{enumerate}
+    \item[$\bullet$] El dominio $\mathcal{D}$ de $\mathcal{I}$ consiste del siguiente conjunto $D = \{ t / \text{t es un t\'ermino sin variables de } \mathcal{L} \} $
+    
+    \begin{observation}
+    Como $T \neq \emptyset$, sea $\epsilon \in T$. Sea $\bar{\epsilon}$ la clausura de $\epsilon$. $\bar{\epsilon} = \forall x_1, \forall x_2, \ldots, \forall x_n$ $\epsilon$ donde variables libres de $\epsilon \subseteq \{ x_1, \ldots, x_n \}$. ¿ $\bar{\epsilon} \in T$? Sino $\neg \bar{\epsilon} \in T$ por otro lado $T \vdash \bar{\epsilon}$ usando generalizaci\'on n-veces como $\neg \bar{\epsilon} \in T$ entonces $T \vdash \bar{\epsilon}$ y $T \vdash \neg \bar{\epsilon}$ absurdo pues $T$ es consistente, luego $\epsilon \in T \rightarrow \bar{\epsilon} \in T$
+    \end{observation}
+    \item[$\bullet$] Veamos c\'omo se interpretan los s\'imbolos de $\mathcal{L}$ en $\mathcal{D}$
+        \begin{enumerate}
+            \item Si $c$ es un s\'imbolo de constantes, $C_{D} = c$
+            \item Si $\mathcal{F}$ es un s\'imbolo de funci\'on n-ario, $\mathcal{F}_{D} \colon D^n \rightarrow D$ es la funcion que asigna una n-upla $(t_1, t_2, \ldots, t_n) \in D^n$, $\mathcal{F}_{D}^{n}(t_1, t_2, \ldots, t_n) = \mathcal{F}^{n}(t_1, t_2, \ldots, t_n) \in D$ es un termino sin variables pues ningun $t_i$ tiene variables.
+            \item Si $\mathcal{P}$ es un s\'imbolo de predicado n-ario, $\mathcal{P}_{D}^{n} = \{ (t_1, t_2, \ldots, t_n) \in D^n / \mathcal{P}^{n} (t_1, t_2, \ldots, t_n) \in T \}$
+        \end{enumerate}
+\end{enumerate}
+\end{proof}
+
+
+\textbf{Probemos el siguiente resultado:} Si $\alpha$ es un enunciado de $\mathcal{L}$, entonces $v_{I}(\alpha) = 1 \iff \alpha \in T$. Este resultado implica que si $\psi \in T$ entonces $\psi$ es v\'alida en $\mathcal{I}$. Pues vemos que $\psi \in T$ entonces $\hat{\psi} \in T$. Luego $v_{I}(\hat{\psi}) = 1$ en particular $\psi$ es v\'alida en $\mathcal{I}$.
+
+\begin{proof}
+La prueba de este resultado se hace por inducci\'on en $c(\alpha) = n$. Si $n = 0$, $\alpha = \mathcal{P}^{n}(t_1, t_2, \ldots, t_n)$ es un enunciado at\'omico.
+
+Supongamos $n > 0$
+
+\begin{observation}
+Las siguientes expresiones son equivalentes:
+
+\begin{align*}
+    (\alpha_1 \land \alpha_2)     &\equiv (\neg \alpha_1 \rightarrow \alpha_2)    \\
+    (\alpha_1 \lor \alpha_2)     &\equiv \neg(\alpha_1 \rightarrow \alpha_2)    \\
+    \exists \alpha_j \;             &\equiv \neg \forall x_j \; \neg \alpha        
+\end{align*}
+
+Por lo tanto, alcanza analizar los casos para $\neg, \rightarrow, \forall x$
+\end{observation}
+
+
+Consideraremos los siguientes tres casos:
+
+\begin{enumerate}
+    \item $\alpha = \neg \beta$ siendo $\alpha$ enunciado. En particular $\beta$ tambi\'en es un enunciado. Supongamos que $v_{I}(\alpha) = 1$. Luego $v_{I}(\beta) = 0$. Por hip\'otesis inductiva, $\beta \notin T$ como T es completo, entonces $\neg \beta = \alpha \in T$. Rec\'iprocamente, supongamos que $\alpha \in T$. Luego $\neg \beta \in T$. Si $\beta \in T$, T es inconsistente, lo cual contradice la hip\'otesis, lo que es imposible. Luego $\beta \notin T$. Por hip\'otesis inductiva, $v_{I}(\beta) = 0$ y luego $v_{I}(\neg \beta) = 1 = v(\alpha)$
+    \item $\alpha = (\beta_1 \rightarrow \beta_2)$ como $\alpha$ es enunciado, entonces $\beta_1$ y $\beta_2$ son enunciados. Hacemos el mismo procedimiento. Si $v_{I}(\alpha) = 1$. Entonces $v_{I}(\beta_2) = 1$ o $v_{I}(\beta_1) = 0$. Si $v_{I}(\beta_2) = 1$, entonces por hip\'otesis inductiva, $\beta_2 \in T$. Sabemos que el axioma $\beta_2 \rightarrow (\beta_1 \rightarrow \beta_2) \in T$. Luego $T |- (\beta_1 \rightarrow \beta_2) \rightarrow (\beta_1 \rightarrow \beta_2) \in T$
+
+    \begin{observation}
+    En general, si $\alpha \in T$ y $\alpha \rightarrow \beta \in T$, entonces $\beta \in T$, pues $T \vdash \beta$ entonces $\beta \in T$, pues sino $\neg \beta \in T$ y luego $T \vdash \beta$ y $T \vdash \neg \beta$. Absurdo, pues T es inconsistente.
+    \end{observation}
+    
+    Si $v_{I}(\beta_1) = 0 \rightarrow $ por hip\'otesis inductiva $\beta_1 \notin T$. Luego $\neg \beta_1 \in T$. Consideremos la f\'ormula $(\neg \beta_1 \rightarrow (\beta_1 \rightarrow \beta_2))$ es demostrable (usar tabla de verdad u otro m\'etodo) y luego $T \vdash (\neg \beta_1 \rightarrow (\beta_1 \rightarrow \beta_2)$. Como $\neg \beta_1 \in T$ entonces por MP $(\beta_1 \rightarrow \beta_2) \in T$. Si $v_{I}(\beta_1 \rightarrow \beta_2) = 0$. Luego $v_{I}(\beta_1) = 1$ y $v_{I}(\beta_2) = 0$. Por hip\'otesis inductiva se tiene que $\beta_1 \in T$ Luego por M.P.  $\beta_2 \in T$ y de nuevo por H.I. se obtiene $v_{I}(\beta_2) = 1$. Esto es absurdo por $v_{I}(\beta_2) = 0$. Por ende $v_{I}(\beta_1 \rightarrow \beta_2) = 1$
+    
+    \item $\alpha = \forall x_j \beta$ con $x_j$ variable y $\alpha$ es enunciado. Si $x_j$ es ligado en $\beta$. Entonces $\beta$ tambi\'en es enunciado y $v_{I}(\alpha) = v_{I}(\beta)$. Luego $v(\alpha) = 1 \iff    v(\beta) = 1 \iff \beta \in T$ (por H.I.) Por generalizaci\'on se obtiene $\alpha \in T$ si $\beta \in T$.
+    
+Supongamos que $x_j$ es \textbf{libre} en $\beta$. Supongamos que $v_{I} (\forall x_j \; \beta) = 1$. Veamos que $\alpha = \forall x_j \; \beta \in T$. Sino $\neg \forall x_j \; \beta \in T$. Como $\mathcal{L}$ es suficiente para $T$ existe un s\'imbolo de constante $c$ tal que $(\neg \forall x_j \; \beta \rightarrow \neg \beta(c)) \in T$ Como $\neg \forall x_j \; \beta \in T$. Por M.P se llega a que $\neg \beta(c) \in T$. Por H.I. $v_{I}(\neg \beta(c)) = 1$ o $v_{I}(\beta(c)) = 0$ lo que contradice el hecho de que $v_{I}(\forall x_j \; \beta) = 1$. $(\neg \beta(c) \in T \rightarrow \beta(c) \notin T)$.
+
+Luego, hemos probado que si $v_{I}(\alpha) = 1$ entonces $\alpha \in T$. Rec\'iprocamente, supongamos que $\alpha = \forall x_j \; \beta in T$. Si $v_{I}(\alpha) = 0$. Luego existe una secuencia $S$ con valores en $D$ / $S$ \textbf{no satisface} a $\beta$. Luego, existe una secuencia $\hat{S} / \hat{S}$ coincide con $S$ en todos los \'indices salvo en el \'indice j.
+
+$v_{I}(\alpha) = 0$ implica $v_{I}(\beta(x_j / t)) = 0$ en donde $t \in D$. Por H.I. $\beta(x_j / t) \notin T$. $(\forall x_j \; \beta \rightarrow \beta(x_j / t)) = \text{Axioma 5} \in T$. Esto se da por M.P. $\rightarrow$ $\beta(x_j / t) \in T$ imposible por H.I.
+
+\end{enumerate}  
+
+\end{proof}

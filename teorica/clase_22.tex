@@ -1,0 +1,155 @@
+\section{Clase 22}
+
+\begin{definition}
+Si $\mathcal{P}$ es un programa de c\'odigo $\mathcal{Z}$ que computa $g$, escribimos:
+
+\[
+g(x) = \Phi^{(1)}(x, z)
+\]
+\end{definition}
+
+\begin{proposition}
+Si $\mathcal{B}$ es r.e. existe un predicado recursivo primitivo $\mathcal{P}(x, t)$ de dos variables tal que $\mathcal{B} = \{ x \in \mathbb{N} \mid \exists t \colon \mathcal{P}(x, t)\}$
+\end{proposition}
+
+\begin{proof}[Demostraci\'on]
+Sea $g$ funcion parcialmente computable tal que $\mathcal{B} = \{ x \in \mathbb{N} \mid g(x) \downarrow \}$ sea $\mathcal{Q}$ un programa de c\'odigo $\mathcal{Z}$ que computa a $g$ definimos $\mathcal{P}(x, t) = STEP^{(1)}(x, z, t)$, entonces $\mathcal{P}$ satisface lo pedido.
+\end{proof}
+
+\begin{colorario}
+$\mathcal{B}$ es r.e., $\mathcal{B} \neq 0$, existe una funci\'on $h \colon \mathbb{N} \to \mathbb{N}$ computable y $Img = B$
+\end{colorario}
+
+\begin{proof}
+Por la proposici\'on anterior existe un predicado $\mathcal{P}(x, t)$ de dos variables recursivas primitivas tal que $\mathcal{B} = \{ x \in \mathbb{N} \colon \exists t \in \mathbb{N} \mathcal{P}(x, t)\}$. Sea $x_0 \in \mathcal{B}$  definimos la siguiente funci\'on $h \colon \mathbb{N} \to \mathbb{N}$
+
+\[
+h(n) =
+\begin{cases}
+l(n)				&\text{si P(l(n), r(n))} es verdadero			\\
+x_0					&\text{es falso}								\\
+\end{cases}
+\]
+
+$h$ es recursiva primitiva y por ende computable. Es claro que $Im h \subseteq \mathcal{B}$. Sea $b \in \mathcal{B}$ luego existe $t \in \mathbb{N} / \mathcal{P}(b, t)$ es verdadero. Sea $n = <b, t>$ luego $l(n) = b$ y $r(n) = t$. Luego $h(n) = l(n) = b$ y luego $\mathcal{B} \subseteq Im(h)$ entonces $\mathcal{B} = Im(h)$
+\end{proof}
+
+\begin{proposition}
+Si $h \colon \mathbb{N} \to \mathbb{N}$ es computable entonces $Im(h)$ es recursivamente enumerable. Sea $\mathcal{P}$ el siguiente programa:
+
+$[A] \ IF \ h(z) = x \ GOTO \ E$
+
+$Z \rightarrow Z + 1$
+
+$GOTO \ A$
+
+Si $g$ es la funci\'on que computa $\mathcal{P}$ se tiene que $Im(h) = \{ x \in \mathbb{N} \colon g(x) \downarrow \}$
+
+\end{proposition}
+
+\begin{colorario}
+Los siguientes condiciones son equivalentes:
+
+\begin{enumerate}
+	\item $B$ es recursivamente enumerable ($B \neq \emptyset$)
+	\item\label{col:prop2} Existe $h \colon \mathbb{N} \to \mathbb{N}$ total y computable tal que $B = Im(h)$
+	\item $B$ es el dominio de un predicado
+\end{enumerate}
+
+\end{colorario}
+
+Si $x \in \mathbb{N}$, diremos que el programa de c\'odigo $\mathcal{X}$ es \textbf{total} si la funci\'on que computa dicho programa (como funci\'on de una variable) est\'a definida en todo $\mathbb{N}$. \textbf{Notaci\'on} esta funci\'on se escribe $\Phi^{(1)}_{x}(y) = \Phi^{(1)}(x, y)$ definimos $B = \{ x \in \mathbb{N} \colon \Phi^{(1)}_{x}\}$  es total. Veamos que $B$ no es recursivamente enumerable.
+
+\begin{proof}[Demostraci\'on]
+Supongamos por el absurdo que $B$ es recursivamente enumerable, luego existir\'ia $h \colon \mathbb{N} \to \mathbb{N}$ total y computable tal que $B = Img(h)$ por~\ref{col:prop2}. Definimos la funci\'on auxiliar $\mathcal{F} \colon \mathbb{N} \to \mathbb{N}$ como sigue: $\mathcal{F} = \Phi^{(1)}(n, h(n) + 1)$, $\mathcal{F}$ est\'a definida para todo $n$ pues $h(n)$ es un c\'odigo de una funci\'on total. Adem\'as, $\mathcal{F}$ es computable (pues las funciones universales lo son). Sea $\mathcal{P}$ un programa que computa $\mathcal{F}$ y sea $z_0 = \# \mathcal{P}$. Como $z_0 \in \mathcal{B} \Rightarrow \exists x_0 \in \mathbb{N}$ tal $h(x_0) = z_0$.
+
+$\mathcal{F}(x_0) = \Phi^{(1)}(x_0, z_0) + 1$. Por otro lado, $\mathcal{F}(x) = \Phi^{(1)}(x, z_0)$ y luego $\mathcal{F}(x_0) = \Phi^{(1)}(x_0, z_0) = \Phi^{(1)}(x_0, z_0) + 1$ lo cual es \textbf{absurdo} que viene de suponer que $B$ es recursivamente enumerable.
+
+\end{proof}
+
+\begin{example}
+
+\begin{enumerate}
+	\item Determinar si $\{ x \in \mathbb{N} \colon \Phi^{(1)}_{x} = \emptyset \}$ es recursivo.
+	\item Determinar si $\{ x \in \mathbb{N} \colon \Phi^{(1)}_{x} = \emptyset \}$ es recursivamente enumerable.
+\end{enumerate}
+\end{example}
+
+\begin{observation}
+Todo conjunto finito es recursivo y en particular es recursivamente enumerable.
+\end{observation}
+
+\begin{proof}[Demostraci\'on]
+Sea $B$ finito. Si $B = \emptyset$, $C_{\emptyset} = 0$ que es recursiva primita. Si $B \neq \emptyset$, $B = \{ x_1, x_2, \ldots, x_n \}$ $=$  $\{ x_1 \}$ $\cup$ $\{ x_2 \}$ $\cup$ $\ldots$  $\cup$ $\{ x_n \}$, usando induccion hasta ver que $\{ a \}$ es recursivo $\forall a \in \mathbb{N}$ en este caso $(B = \{ a \})$,
+$C_B(x) =
+\begin{cases}
+1		&x = a		\\
+0		&x \neq a	
+\end{cases}$
+
+que es una funci\'on primitiva recursiva. Luego si $B$ no es recursiva entonces $B$ y $B^{C}$ son infinitos.
+\end{proof}
+
+\begin{definition}[Teorema del Par\'ametro]
+Sean $m$, $n \in \mathbb{N}$ y consideramos las funciones universales:
+
+\[
+\Phi^{m + n}(\underbrace{x_1, x_2, \ldots, x_m, \overbrace{u_1, u_2, \ldots, u_n}^{parametros}, \overbrace{y}^{programa}}_{\textit{m + n entradas}})
+\]
+
+Si les damos valores a $u_1, u_2, \ldots, u_n$ e $y$, existe una funci\'on recursiva primitiva $S^{n}_{m}$ de $n + 1$ variables tales que:
+
+\[
+\Phi^{n + m}(x_1, x_2, \ldots, x_n, u_1, u_2, \ldots, u_n, y) = \Phi^{m}(x_1, x_2, \ldots, x_n, S^{n}_{m}(u_1, u_2, \ldots, u_n, y))
+\]
+
+\end{definition}
+
+\begin{proof}[Demostraci\'on]
+Hacemos inducci\'on en $n$. Si $n = 1$, $S^{1}_{m}(u, y)$ se define del siguiente modo:
+
+A probar $\Phi^{m + 1}(x_1, \ldots, x_m, u, y) = \Phi^{m}(x_1, \ldots, x_m, S^{1}_{m}(u, y))$
+
+Consideremos la siguiente instrucci\'on:
+\( u-veces =
+\begin{cases}
+X_{m + 1} \rightarrow x_{m + 1} + 1			\\
+\ldots										\\
+x_{m + 1} \rightarrow x_{m + 1} + 1			\\
+\end{cases}
+\)
+
+Si llamamos $\mathcal{I}$ a la instrucci\'on $X_{m + 1} \leftarrow X_{m + 1} + 1$
+
+\begin{align*}
+\# \mathcal{I} = <a, <b, c>> &= <\underbrace{0}_{\substack{\text{no tiene} \\ \text{etiqueta}}}, <\underbrace{1}_{\substack{\text{instructional} \\ \text{suma}}}, \underbrace{\#X_{m + 1}}_{\#X_{m + 1} = 2(m+1) = 2m + 2}> 	\\
+<1, \underbrace{2m + 1}_{y}> &= 2(2y + 1) - 1 = 2(4m + 3) - 1 = 8m + 5										\\
+<0, 8m + 5> &= 16m + 10 \Rightarrow \#\mathcal{I} = 16m + 10												\\
+\mathcal{S}^{1}_{m} &= \left[ \prod_{i = 1}^{u} p_{i}^{16 m + 10} \times \prod_{j < i}^{Lt(y + 1)}p_{u + j}^{y + 1} \times j \right] - 1
+\end{align*}
+
+$\mathcal{S}^{1}_{m}$ es primitiva recursiva y satisface lo pedido. Argumento inductivo: supongamos que $\Phi^{m + n}(x_1, \ldots, x_m, u_1, u_2, \ldots, u_n, y) = \Phi^{m}(x_1, \ldots, x_m, \mathcal{S}^{m}_{n}(u_1, u_2, \ldots, u_n, y))$ (H.I.)
+
+\begin{align*}
+\Phi^{m + (n + 1)}(\underbrace{x_1, \ldots, x_m, u_1, \ldots, u_n}_{}, u_{n + 1}, y) &= \Phi^{m + n}(x_1, \ldots, x_m, u_1, \ldots, u_n, \overbrace{\mathcal{S}^{1}(u_{n + 1}, y)}^{\textit{recursivo primitivo}}) \\
+\Phi^{m + n}(x_1, \ldots, x_m, u_1, \ldots, u_n, \mathcal{S}^{1}(u_{n + 1}, y)) &= \Phi^{m}(x_1, \ldots, x_m, \underbrace{T(u_1, \ldots, u_n, \mathcal{S}^{1}(u_{n + 1}, y))}_{\textit{recursivo primitivo}})
+\end{align*}
+
+\end{proof}
+
+\begin{observation}
+$\Phi(\underbrace{x_1, x_2}_{entrada}, \overbrace{u}^{codigo})$ se considera la siguiente composicion:
+
+\begin{align*}
+\Phi_{u}^{1}(x) 				&= \Phi^{1}(x, u)						\\
+\Phi_{v}^{1}(x) 				&= \Phi^{1}(x, v)						\\
+\Phi_{u}^{1}(\Phi_{v}^{1}(x)) 	&= \Phi_{u}^{1}(\Phi^{1}(x, v))			\\
+\Phi_{u}^{1}(\Phi_{v}^{1}(x)) 	&= \Phi^{1}(\Phi^{1}(x, v), u)			\\
+\Phi_{u}^{1}(\Phi_{v}^{1}(x)) 	&= \Phi^{1}(x, g(v, u))					\\
+G(x, v, u)						&= \Phi^{1}(\Phi^{1}(x, v), u)
+\end{align*}
+
+
+$G$ es parcialmente computable en las entradas $x$, $v$, $u$. Sea $\mathcal{P}$ el programa que computa $\mathcal{G}$. Si $Z_0 = \# \mathcal{P}$, $G(x, u, v) = \Phi_{3}(x, u, v, z_0)$. Por el teorema del par\'ametro $\Phi^{3}(x, u, v, z_0) = \Phi^{2}(x, u, h(v, z_0))$ y por el teorema del par\'ametro de nuevo $\Phi^{2}(x, u, h(v, z_0)) = \Phi^{1}(x, k(u, h(v, z_0)))$. Conclusion, la composicion $\Phi^{1}_{u}(\Phi^{1}_{v}(x)) = \Phi^{1}(x, \mathcal{P}(u, v))$ donde $P(u, v) = k(u, h(v, z_0))$
+\end{observation}
+

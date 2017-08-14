@@ -1,0 +1,159 @@
+\section{Clase 18}
+ 
+\subsection{Aplicaciones}
+ 
+\begin{example}
+El predicado de divisibilidad es primitivo recursivo:
+ 
+\[
+x | y =
+\begin{cases}
+1			&\text{si $x$ es divisor de $y$}		\\
+0			&\text{sino}							\\
+\end{cases}
+\]
+ 
+$x | y$ si y s\'olo si existe un $t \in \mathbb{N}$ tal que $y = x \times t$ $\Rightarrow$ $x | y$ si y s\'olo si existe un $t \leq y$ tal que $y = x \times t$ (para que quede acotado).
+ 
+$x | y$ coincide con el predicado $\exists_{t \leq y} (y = x \times t)$. El predicado es primitivo recursivo por ser composici\'on de funciones como el producto y el existencial acotado es primitivo recursivo.
+\end{example}
+ 
+\begin{example}
+Sea $\theta \colon \mathbb{N} \leftarrow \mathbb{N}$ dada por $\theta(0) = 0$ y si $n > 0$, $\theta(n) = \bullet | \alpha$ en donde $\alpha$ es cada uno de los divisores de $n$.
+ 
+Si $n = p_{1}^{\alpha_1} \times \ldots \times p_{k}^{\alpha_k}$ $\theta(n) = (\alpha_1 + 1) \times (\alpha_2 + 1) \times \ldots \times (\alpha_k + 1)$.
+ 
+$\theta(n) = \sum_{i = 1}^{n} (i | n)$ (suma acotada por n la entrada de la funci\'on)
+ 
+$\theta(n)$ es una suma acotada de un predicado recursivo primitivo el cual es primitivo recursivo. Por lo tanto $\theta$ es recursiva primitiva.
+ 
+\end{example}
+ 
+\begin{example}
+El siguiente predicado es primitivo recursivo:
+ 
+\[
+primo(n) =
+\begin{cases}
+1			&\text{si $n$ es primo}		\\
+0			&\text{sino}				\\
+\end{cases}
+\]
+ 
+\[
+primo(n) =
+\begin{cases}
+1			&\text{si $\theta(n) = 2$}			\\
+0			&\text{si $\theta(n) \neq 2$}		\\
+\end{cases}
+\]
+ 
+primo es recursivo primitivo ya que $\theta$ es recursivo primitivo, $=$ es recursivo primitivo y $2$ es recursivo primitivo.
+\end{example}
+ 
+\begin{definition}[Minimizaci\'on Acotada]
+Sea $P(x_1, x_2, \ldots, x_n, t)$ un predicado de $n + 1$ variables. Definimos la \textbf{minimizaci\'on} asociado al predicado $P$ a la siguiente funci\'on de $n$ variables es verdadera:
+ 
+\[
+\mathcal{F}(x_1, x_2, \ldots, x_n) = min_{t}\;P(x_1, x_2, \ldots, x_n, t)
+\]
+ 
+$\mathcal{F}(x_1, \ldots, x_n)$ \textbf{no est\'a definido} cuando no existe $t \ P(x_1, \ldots, x_n, t)$ es verdadero.
+\end{definition}
+ 
+\begin{example}
+$P(x, t) \colon x < t$
+ 
+$\mathcal{F}(x) = min_{t} x < t$
+ 
+$\mathcal{F}(x) = x + 1$
+ 
+\end{example}
+ 
+\begin{example}
+Si $Q(x, t) \colon t < x$
+ 
+$\mathcal{F}(x) = min_{t} t < x$
+ 
+$\mathcal{F}(0) = \uparrow$ y $\mathcal{F}(x) = x - 1$ si $x > 0$
+ 
+\end{example}
+ 
+\begin{proposition}
+Si $P(x_1, \ldots, x_n, t)$ es un predicado computable de $n + 1$ variables entonces $min_{t}\;P(x_1, x_2, \ldots, x_n, t)$ es una funci\'on parcialmente computable
+\end{proposition}
+ 
+\begin{proof}[Demostraci\'on]
+El siguiente programa computa el m\'inimo:
+ 
+$[A]\;IF\;P(x_1, \ldots, x_n, Z) \neq 0 \; GOTO \; E$
+ 
+$Z \leftarrow Z + 1$
+ 
+$GOTO A$
+ 
+$[E]\; Y \leftarrow Z$
+\end{proof}
+ 
+\begin{definition}[M\'inimo Acotado]
+Sea $P(x_1, x_2, \ldots, x_n, t)$ un predicado de $n + 1$ variables. Se define $min_{t \leq y}\;P(x_1, \ldots, x_n, t)$. Como el menor $t \leq y / P(x_1, x_2, \ldots, x_n, t)$ es verdadero y toma el valor $0$ si no existe $t \leq y / P(x_1, x_2, \ldots, x_n, t)$
+\end{definition}
+ 
+\begin{proposition}
+Si $P(x_1, \ldots, x_n, t)$ es un predicado recursivo primitivo de $n + 1$ variables entonces el $min_{t \leq y}$ $P(x_1, \ldots, x_n, t)$ es recursiva primitiva en las variables $x_1, \ldots, x_n, y$
+\end{proposition}
+ 
+\begin{proof}[Demostraci\'on]
+Hacemos recursi\'on sobre $y$. Sea $\mathcal{F}(x_1, \ldots, x_n, y) = min_{t \leq y}\; P(x_1, \ldots, x_n, t)$.
+ 
+\begin{enumerate}
+	\item[] $\mathcal{F}(x_1, \ldots, x_n, 0) = 0$
+	\item[] $\mathcal{F}(x_1, \ldots, x_n, y + 1)$
+		\begin{enumerate}
+			\item[] $\mathcal{F}(x_1, \ldots, x_n, y)$ si $\exists_{t \leq y}\;P(x_1, \ldots, x_n, t)$
+			\item[] $y + 1$ si $\neg \exists_{t \leq y}\;P(x_1, \ldots, x_n, t) \land P(x_1, \ldots, x_n, y + 1)$			
+			\item[] $0$ en otro caso
+		\end{enumerate}
+\end{enumerate}
+ 
+$H(x_1, x_2, \ldots, x_n, y, \underbrace{\mathcal{F}(x_1, \ldots, x_n, y)}_{z})$
+ 
+\[
+H(x_1, x_2, \ldots, x_n, y, z) =
+\begin{cases}
+z			&		\\
+y + 1		& 		\\
+0			&
+\end{cases}
+\]
+\end{proof}
+ 
+\begin{example}
+Sea $\mathcal{F} \colon \mathbb{N} \rightarrow \mathbb{N}$ la funci\'on $\mathcal{F}(x) = [\sqrt{x}]$. En donde [a] es el entero m\'as pr\'oximo a la izquierda de a:
+ 
+[a] $\leq a < $ [a] + 1
+ 
+$[\sqrt{x}] = min_{t \leq x}\;t + 1 \leq [\sqrt{x}] = min_{t \leq x} \; (t + 1)^2 > x$
+\end{example}
+ 
+\begin{example}
+Sea $\mathcal{F} \colon \mathbb{N} \rightarrow \mathbb{N}$ dado por $\mathcal{F}(n) = P_n$ (n \'esimo m\'inimo primo). Entonces $\mathcal{F}$ es recursivo primitivo si $n \geq 1$.
+ 
+\begin{enumerate}
+	\item[] $\mathcal{F}(0) = 1$
+	\item[] $\mathcal{F}(1) = 2$
+	\item[] $\mathcal{F}(2) = 3$
+	\item[] $\mathcal{F}(3) = 5$
+\end{enumerate}
+ 
+Definici\'on recursiva de $\mathcal{F}$.
+ 
+\begin{enumerate}
+	\item[]$\mathcal{F}(0) = 1$
+	\item[]$\mathcal{F}(n + 1) = P_{n + 1} = min_{t \leq P_n! + 1}\;(primo(t) \land t > P_n)$
+\end{enumerate}
+ 
+Debemos buscar la funci\'on $H$, $H(n, \underbrace{\mathcal{F}(n)}_{P_n})$ $=$ $H(n, m) = min_{t \leq m! + 1} (primo(t) \land t > m)$
+\end{example}
+ 
+ 

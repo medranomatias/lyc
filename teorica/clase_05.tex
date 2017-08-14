@@ -1,0 +1,98 @@
+\section{Clase 05}
+
+\begin{definition}
+
+Si $\mathfrak{L}$ es un lenguaje de primer orden y sea $\varphi$ una f\'ormula de $\mathfrak{L}$. Si $x_i$ es una variable diremos que $x_i$ aparece \textbf{libre} en $\varphi$ si se verifica una y solamente una de las siguientes condiciones:
+
+\begin{enumerate}
+	\item si $\varphi$ es una f\'ormula at\'omica $\varphi = \mathcal{P}^n\;(t_1, t_2, \ldots, t_n)$. $x_i$ aparece libre en $\varphi$ si y s\'olo si $x_i \in \{Var(t_1) \cup Var(t2) \cup \ldots \cup Var(t_n) \}$
+	\item Si $\varphi = \neg \beta$ con $\beta$ f\'ormulas. $x_i$ aparece libre en $\varphi$ si y s\'olo si $x_i$ aparece libre en $\beta$
+	\item Si $\varphi = \beta_1 * \beta_2$ con $\beta_1, \; \beta2$ f\'ormulas y * conectivos binarios $\{ \land, \lor, \rightarrow \}$. $x_i$ aparece libre en $\varphi$ $\iff$ $x_i$ aparece libre en $\beta_1$ o $x_i$ aparece libre en $\beta_2$
+	\item Si $\varphi = \exists x_k \; \beta$ o $\varphi = \forall x_k \; \beta$. $x_i$ aparece libre en $\varphi$ $\iff$ $x_i \neq x_j$ y $x_i$ libre en $\beta$	
+\end{enumerate}
+
+\end{definition}
+
+\begin{definition}
+
+Decimos que una variable $x_i$ es \textbf{ligada} en $\varphi$ si $x_i$ no aparece libre en $\varphi$. Un \textbf{enunciado} es una f\'ormula de $\varphi$ en las que dadas sus variables son ligadas. $\textbf{NO tiene variables libres.}$
+
+\end{definition}
+
+\begin{definition}
+
+Sea $\mathfrak{L}$  un lenguaje de primer orden, sea $\varphi$ una f\'ormula y sea $x_i$ una variable libre en $\varphi$.
+
+Si $t$ es un t\'ermino de $\mathfrak{L}$ , diremos que \textbf{t es libre para $x_1$} si $x_1$ no aparece bajo el alcance de un cuantificador del tipo $\exists x_j$ o $\forall x_j$ con $x_j$ una variable de $t$  o equivalentemente, si se sustituye un $x_i$ por $t$ en $\varphi$, las ocurrencias libres son invariantes.
+
+\end{definition}
+
+\begin{example}
+Si t es un t\'ermino sin variables entonces t es libre para $x_i$
+\end{example}
+
+\subsection{Sem\'antica de los lenguajes de primer orden}
+
+\subsubsection{Nociones B\'asicas}
+
+Si $\mathcal{D}$ es un conjunto no vac\'io, una funci\'on n-aria sobre $\mathcal{D}$ es una funci\'on $\mathcal{F}$: $\underbrace{D \times D \times \ldots D}_{n-veces}$ $\rightarrow$ $\mathcal{D}$. Una relaci\'on n-aria es un subconjunto $R \subseteq D^n$
+
+\begin{definition}
+
+Sea $\mathfrak{L}$  un lenguaje de primer orden, una interpretaci\'on de $\mathfrak{L}$  o $\mathfrak{L}$ -estructura consiste de los siguientes ingredientes:
+
+\begin{enumerate}
+	\item Un conjunto no vac\'io $\mathfrak{D}$ , llamado \textit{el dominio} de la interpretaci\'on.
+	\item Si $c \in \mathfrak{C}$ es un s\'imbolo de constante, c se interpreta como un elemento $\mathfrak{C}_d \in \mathfrak{D}$
+	\item Si $F^n$ es un s\'imbolo de funci\'on n-ario, $F^n$ se interpreta como una funci\'on $F^{n}_{d} : D^n \to D$.
+	\item Si $P^n$ es un s\'imbolo de relaci\'on o predicado n-ario, $P^n$ se interpreta como una relaci\'on $P^{n}_{d}$ n-ario sobre D, $P^{n}_{d} \subseteq D^n$
+\end{enumerate}
+
+\end{definition}
+
+\begin{example}
+
+\begin{enumerate}
+\item L = $\{c, F^1, P^1 \}$
+
+	Ejemplos:
+	\begin{enumerate}
+	\item $D = \Re$ (numeros reales)
+	
+	$C_d = \pi$
+	
+	$F^{1}_{d}(x) = x^2$
+	
+	$P^{1}_{d} = \{ x \in \Re / x > 0\}$
+	\item $D = \Re$
+	
+	$C_d = \sqrt{2}$
+	
+	$F^{1}_{d}(x) =
+		\begin{cases}	
+			1 &\text{x es racional} \\
+			0 &\text{x es irracional}
+		\end{cases}$		
+	\end{enumerate}
+
+\item L = $\{c, F^1, P^1 \}$
+
+	D = "Arquero de futbol"
+	
+	$C_d$ = "Chilavert"
+	
+	$F^{1}_{d}: D \to D$
+	
+	$F^{1}_{d}(x) = x$
+	
+	$P^{1}_{d} = \{ x \in D / \text{"x tiene m\'as de 30 años"}\}$
+\end{enumerate}
+
+\begin{align*}
+	P^{1}_{d} &= \Re \\
+	\exists x_1 F^{1}(x_1) &= F(x_1) 	\\
+	\exists x_1 F^{1}(x_1) &= c			\\
+	\exists x_1, x_{1}^{2} &= \pi		\\
+\end{align*}
+
+\end{example}

@@ -1,0 +1,196 @@
+\section{Clase 02}
+
+\subsection{Alfabeto de la l\'ogica proposicional}
+
+Sea el siguiente alfabeto: 
+
+A = \{ p\subi{0}, p\subi{1}, p\subi{2}, ..., p\subi{n} \} \ccup \{\cneg, \ciff, \clor, \then \} \ccup \{ (, ) \} 
+
+Un alfabeto finito \textbf{equivalente} es:
+
+A$'$ = \{ p, $|$ \} \ccup \{\cneg, \ciff, \clor, \then \} \ccup \{ (, ) \}
+
+Identificamos p\subi{0}, con p, p\subi{1} con p $|$, p\subi{2} con p $||$ \ldots
+
+\begin{definition}
+Una \textbf{Una cadena de formaci\'on} es una sucesi\'on finita, c\subi{0}, c\subi{1}, \ldots c\subi{n} de expresiones sobre A$'$ que verifica la siguiente condici\'on:
+
+Si i \cin \{0, 1, \ldots, n \} entonces c\subi{i} es una variable proposicional o bien existe un j $<$ i tal que c\subi{i} = \cneg c\subi{j}  o existen j, k $<$ i * \cin \{\cneg, \cland, \clor, \then \} tal que c\subi{i} = (c\subi{j} * c\subi{k})
+
+Los t\'erminos de c\subi{0}, c\subi{1}, \ldots, c\subi{n} se denominan \textbf{eslabones de la cadena}.
+
+Una \textbf{f\'ormula} $\alpha$ es una expresi\'on sobre A$'$ tal que existe una cadena de formaci\'on c\subi{0}, \ldots, c\subi{n} y c\subi{n} = $\alpha$.
+\end{definition}
+
+\begin{observation}
+El primer eslab\'on tiene que ser una variable.
+\end{observation}
+
+\begin{example}
+Las siguientes expresiones son f\'ormulas:
+\begin{enumerate}
+	\item $\alpha$ = ((\cneg\cneg p\subi{3} \then p\subi{7}) \then p\subi{5})
+	\item $\beta$ = ((p\subi{1} \clor \cneg p\subi{2}) \then \cneg p\subi{3})
+\end{enumerate}
+
+Una cadena de formaci\'on de $\alpha$ es:
+
+p\subi{7}, p\subi{3}, \cneg p\subi{3}, \cneg\cneg p\subi{3}, (\cneg\cneg p\subi{3} \then p\subi{7}), p\subi{5}, $\alpha$
+
+Usando la notaci\'on queda como:
+
+c\subi{0} = p\subi{7}, c\subi{1} = p\subi{3}, c\subi{2} = \cneg c\subi{1}, c\subi{3} = \cneg c\subi{2}, c\subi{4} = (c\subi{3} \then c\subi{1}), c\subi{5} = p\subi{5}, c\subi{6} = $\alpha$ = (c\subi{4} \then c\subi{5})
+
+\end{example}
+
+\begin{observation}
+$\;$
+\begin{enumerate}
+	\item Si c\subi{0}, c\subi{1}, c\subi{2}, \ldots, c\subi{n} es una cadena de formaci\'on. Entonces c\subi{0}, \ldots, c\subi{k} es tambi\'en cadena de formaci\'on \cforall 0 $\leq$ k $\leq$ n. \emph{Nota:} En particular todos los eslabones de una cadena son f\'ormulas
+	\item Si c\subi{0}, c\subi{1}, \ldots, c\subi{n} es cadena de formaci\'on, entonces c\subi{0} es una variable de proposici\'on.
+	\item Toda f\'ormula $\alpha$ admite infinitas cadenas de formaci\'on.
+\end{enumerate}
+
+Sea c\subi{0}, c\subi{1}, \ldots, c\subi{n} cadena de formaci\'on de $\alpha$ A partir de esta cadena podemos generar la siguiente lista \textbf{infinita} de cadenas. Sea p\subi{4} la variable que colocamos al comienzo:
+
+p\subi{4}, c\subi{0}, c\subi{1}, \ldots, c\subi{n}
+
+p\subi{4}, c\subi{0}, c\subi{1}, \ldots, c\subi{n}
+
+p\subi{4}, p\subi{4}, c\subi{0}, c\subi{1}, \ldots, c\subi{n}
+
+p\subi{4}, p\subi{4}, p\subi{4}, c\subi{0}, c\subi{1}, \ldots, c\subi{n}
+
+$\underbrace{p_4, p_4, \ldots, p_4}_{k veces}, c_0, c_1, \ldots, c_n$
+
+\end{observation}
+
+\begin{definition}
+
+Una cadena de formaci\'on c\subi{0}, c\subi{1}, \ldots, c\subi{n} se dice \textbf{minimal} (con c\subi{n} = $\alpha$). Si no admite ninguna subcadena propia que sea cadena de formaci\'on de $\alpha$
+
+\end{definition}
+
+\begin{example}
+
+Tenemos la cadena de formaci\'on $\underbrace{p_1}_{c_1}$, $\underbrace{\neg p_1}_{c_2}$, $\underbrace{\neg \neg p_1}_{c_3}$
+
+\end{example}
+
+\begin{proposition}
+
+Toda f\'ormula $\alpha$ admite un \textbf{n\'umero finito} de cadena de formaci\'on minimales.
+
+\end{proposition}
+
+\begin{example}
+
+Problema: Determinar el n\'umero de cadenas de formaci\'on minimales de una f\'ormula.
+
+Consideremos el siguiente ejemplo
+
+$\alpha$ = ((\cneg \cneg p\subi{1} \then p\subi{2}) \then p\subi{3})
+
+Una cadena de formaci\'on puede ser la siguiente
+
+p\subi{1}, \cneg p\subi{1}, \cneg\cneg p\subi{1}, p2, p3, (\cneg\cneg p\subi{1} \then p\subi{1}), $\alpha$
+
+\end{example}
+
+\begin{definition}
+Sea el alfabeto A$'$ de la l\'ogica proposicional. Notaremos con $\mathcal{F}$ al conjunto de las f\'ormulas:
+
+\begin{enumerate}
+	\item Si $\mathcal{F}$ es una expresi\'on sobre A' se define el peso de E al siguiente n\'umero entero
+	p(E) = {N° de "(" que aparecen en E} - { N° de ")" que aparecen en E}
+	\item Si $\alpha$ \cin $\mathcal{F}$ se define la complejidad de $\alpha$ al n\'umero de conectivos 			que aparecen en $\alpha$ contado tantas veces como aparece. Este n\'umero se denota por c($			\alpha$).
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+$\;$
+\begin{enumerate}
+	\item E = (p\subi{1})) \then P(E) = -1
+	\item Si $\alpha$ \cin $\mathcal{F}$. c($\alpha$) = 0 \ciff es una variable proposicional.
+	\item Si $\alpha$ = ((\cneg\cneg p\subi{1} \then p\subi{2}) \then p\subi{4}) c($\alpha$) = 4 	p($\alpha$) = 0	
+\end{enumerate}
+\end{example}
+
+\begin{proposition}
+$\;$
+\begin{enumerate}
+	\item S\'i $\alpha$ \cin $\mathcal{F}$, entonces p($\alpha$) = 0
+	\item Si * es un conectivo binario que aparece en $\alpha$ y E es la expresi\'on que está a la 	expresi\'on que aparece a la izquierda de * entonces p(E) $>$ 0.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+$\;$
+
+Parte a) Sea c\subi{0}, c\subi{1}, \ldots, c\subi{n} una cadena de formaci\'on de $\alpha$. Probemos que si 0 $\leq$ i $\leq$ n entonces p(c\subi{i}) = 0.
+
+Si i = 0 es una variable proposicional. En este caso p(c\subi{0}) = 0 pues no tiene \textbf{par\'entesis}
+
+Sea k un \'indice arbitrario con k $>$ 0. Luego, por hip\'otesis inductiva, expresa que p(c\subi{j}) = 0 si j $<$ k. Hay 3 casos:
+
+\begin{enumerate}
+	\item c\subi{k} es una variable, luego p(c\subi{k}) = 0
+	\item c\subi{k} = \cneg c\subi{j} con j $<$ k. Como p(c\subi{k}) = p(c\subi{j}) \then p(c			\subi{k}) = 0.
+	\item c\subi{k} = (c\subi{j} * c\subi{j'}) con j, j' $<$ k y * \cin \{ \cland, \clor, \then 		\}. p(c\subi{k}) = [ 1 + N° de "(" en c\subi{j} + N° de "(" en c\subi{j'}] - [ 1 + N° de ")" 	en c\subi{j} + N° de ")" en c\subi{j'}] = 1 + p(c\subi{j}) + p (c\subi{j'}) - 1 = 0 (por la 		hip\'otesis inductiva, ya que p(c\subi{j}) y p(c\subi{j'}) = 0).
+\end{enumerate}
+
+Parte b) Sea c\subi{0}, c\subi{1}, \ldots, c\subi{n} una cadena de formaci\'on de $\alpha$.
+Probemos que si 0 $\leq$ i $\leq$ n entonces c\subi{i} verifica la condici\'on.
+
+Si i = 0, c\subi{0} es una variable proposicional. c\subi{0} satisface la condici\'on trivialmente, pues en c\subi{0} no hay ning\'un conectivo. (el antecedente es falso)
+
+Sea k $>$ 0 y supongamos que c\subi{j} satisface la condici\'on si j $<$ k. Hay 3 casos:
+
+\begin{enumerate}
+	\item c\subi{k} es variable proposicional. El argumento es el mismo que el caso i = 0.
+	\item c\subi{k} = \cneg c\subi{j} con j $<$ k. Si * es un conectivo binario que aparece en c		\subi{k} entonces * aparece en c\subi{j}. Luego c\subi{j} = E * E$'$ y E$'$ expresiones 			\then \cneg c\subi{j} = c\subi{k} = \cneg E * E' y p(\cneg E) = \cneg p(E) = p(E) $>$ 0. Luego 	c\subi{k} verifica la condici\'on.
+	\item c\subi{k} = (c\subi{j} ° c\subi{j'}) con j, j$'$ $<$ k y ° \cin { \cland, \clor, 			\then}. Sea * \cin \{ \clor, \cland, \then \} / * aparece en c\subi{k}
+
+	Si * aparece en c\subi{j}. c\subi{j} = E * E$'$. La expresi\'on a la izquierda de * en c			\subi{k} es (E y p((E) = 1 + p(E) $>$ 0, pues p(E) $>$ 0
+
+	Si * = 0 la expresi\'on a la izquierda de ° en c\subi{k} es (c\subi{j}. p((c\subi{j}) = 1 + 		p(c\subi{j}) = 1 + 0 = 1 $>$ 0.
+
+	Si * aparecen en c\subi{j'}, c\subi{j'} = E * E$'$. La expresi\'on de la izquierda de * en c		\subi{k} es F = ( c\subi{j} ° E y p(F) = 1 + p(c\subi{j}) + p(E) = 1 + p(E) $>$ 0.
+\end{enumerate}
+
+\end{proof}
+
+\subsection{Unicidad de la escritura de las f\'ormulas}
+
+Si $\alpha$ \cin $\mathcal{F}$ entonces se verifica una y solamente una de las siguientes condiciones:
+
+\begin{enumerate}
+	\item $\alpha$ es una variable proposicional.
+	\item Existe una \'unica f\'ormula $\beta$ tal que $\alpha$ = \cneg $\beta$.
+	\item Existe un \'unico conectivo binario *  y una \'unicas f\'ormulas $\alpha_1$ y $\alpha_2$ tales que $\alpha$ = ($\alpha_1$ * $\alpha_2$)
+\end{enumerate}
+
+\begin{proof}
+
+Pruebe que $\alpha$ \cin F.
+
+Si $\alpha$ es una variable no hay nada que probar.
+
+Si $\alpha$ = \cneg $\beta$ = \cneg $\beta '$ con $\beta$, $\beta'$ \cin F y esto implica $\beta$ = $\beta'$
+
+Si $\alpha$ = (\textsc{$\beta_1$} ° $\beta_2$) = ($\alpha_1$ * $\alpha_2$)
+
+Con °, * conectivos binarios. Veamos que $\beta_1$ = $\alpha_1$, ° = *, y $\beta_2$ = $\alpha_2$. Eliminando los par\'entesis se llega a:
+
+($\beta_1$ ° $\beta_2$) = ($\alpha_1$ * $\alpha_2$)
+
+El resultado es cierto si \length($\beta_1$) = \length($\alpha_1$)
+
+Si \length($\beta_1$) $>$ \length($\alpha_1$), \then $\beta_1$ = $\alpha_1$ * E. Por la parte (b) de la proposici\'on anterior, la expresi\'on que aparece a la izquierda de * que es $\alpha_1$ debe tener peso positivo. Lo que contradice la parte (a)
+
+Del mismo modo \length($\beta_1$) $<$ \length($\alpha_1$), no es posible.
+
+\length($\beta_1$) = \length($\alpha_1$) \then implica que ambos son iguales, por lo tanto
+$\beta_1$ = $\alpha_1$, ° = *, $\beta_2$ = $\alpha_2$
+
+\end{proof}

@@ -1,0 +1,98 @@
+\section{Clase 14}
+ 
+Si $\mathcal{T}$ es un conjunto consistente de un lenguaje de primer orden, entonces existe un conjunto $\hat{\mathcal{T}}$ de f\'ormulas de $\mathcal{L}$ tal que:
+ 
+\begin{enumerate}
+	\item $\mathcal{T} \subseteq \hat{\mathcal{T}}$
+	\item $\hat{\mathcal{T}}$ es consistente.
+	\item $\hat{\mathcal{T}}$ es completo.
+\end{enumerate}
+ 
+(vimos la prueba en el caso de que $\mathcal{L}$ es finito o numerable)
+ 
+\begin{theorem}
+Sea $\mathcal{L}$ un lenguaje de primer orden y sea $\mathcal{T}$ un conjunto consistente de f\'ormulas. Existe un lenguaje $\mathcal{L} \subseteq \hat{\mathcal{L}}$ y un conjunto de f\'ormulas $\hat{\mathcal{T}}$ que verifica las siguientes condiciones:
+ 
+\begin{enumerate}
+	\item $\mathcal{T} \subseteq \hat{\mathcal{T}}$
+	\item $\hat{\mathcal{T}}$ es consistente.
+	\item $\hat{\mathcal{L}}$ es suficiente para $\hat{\mathcal{T}}$
+\end{enumerate}
+\end{theorem}
+ 
+Haremos la prueba para el caso que $\mathcal{L}$ sea \textbf{finito} o \textbf{numerable}, \{ \textit{s\'imbolos de predicado} \} $\cup$ \{ \textit{s\'imbolos de funci\'on} \} $\cup$ \{ \textit{s\'imbolos de constante} \} es finito o numerable.
+ 
+En una \textbf{primera etapa} agregamos al lenguaje $\mathcal{L}$ un nuevo conjunto numerable de s\'imbolos de constante $\{ c_1, c_2, \ldots$ $, c_n, \ldots \}$. Llamemos $\mathcal{L}$ a ese nuevo lenguaje. Como $\mathcal{L}$ es numerable entonces $\hat{\mathcal{L}}$ es tambi\'en numerable.
+ 
+En una \textbf{segunda etapa} hacemos una enumeraci\'on de todas las f\'ormulas de $\hat{\mathcal{L}}$ que tiene una variable libre. Esta enumeraci\'on se describe como sigue: 
+$\varphi_{1}(x_{j_{1}}), \varphi_{1}(x_{j_{2}}), \ldots, \varphi_{1}(x_{j_{n}})$
+ 
+En una \textbf{tercera etapa} construimos inductivamente la siguiente secuencia de f\'ormulas: $(\neg \forall x_{j_{1}} \varphi_{1}(x_{j_{1}}) \Rightarrow \neg \varphi_{1}(c_{i_{1}}))$, $(\neg \forall x_{j_{2}} \varphi_{2}(x_{j_{2}}) \Rightarrow \neg \varphi_{2}(c_{i_{2}}))$, $\ldots$, $(\neg \forall x_{j_{n}} \varphi_{n}(x_{j_{n}}) \Rightarrow \neg \varphi_{n}(c_{i_{n}})), \ldots$ donde $c_{i_{1}}$ no aparece en $\varphi_{1}(x_{j_{1}}), \ldots, $ y $c_{i_{n}}$ no aparece en ninguna de las f\'ormulas anteriores $\varphi_{1}, \varphi_{2}, \ldots, \varphi_{n - 1}, \varphi_{n}$ y $c_{i_{j}} \neq c_{i_{k}}$ si $j \neq k$
+ 
+\textbf{Notaci\'on:} Escribiremos para cada \'indice $k$, $\alpha_{k} = (\neg \forall x_{j_{k}} \varphi_{k}(x_{j_{k}}) \Rightarrow \neg \varphi_{k}(c_{i_{k}}))$
+ 
+Definimos en una \textbf{cuarta etapa} el siguiente conjunto de f\'ormulas $\hat{T} = T \cup {\lambda_k}$ con $k \geq 1$. Por construcci\'on resulta que $\hat{\mathcal{L}}$ es suficiente para $\hat{T}$ y $T \subseteq \hat{T}$. 
+ 
+En una \textbf{quinta etapa} debemos probar que $\hat{T}$ es consistente. Para cada $n \geq 1$, escribimos $T_n = T \cup \{ \lambda_k \}_{1 \leq i \leq n}$ y $T_0 = T$. Notamos que $\hat{T} = \bigcup_{n = 0}^{\infty} T_n$ y $\hat{T}$ es consistente $\iff$ es consistente $\forall n \geq 0$
+ 
+ 
+\begin{proof}
+Probemos por inducci\'on en $n$ que $T_n$ es consistente $\forall n \geq 0$. Si $n = 0$, veamos que $T$ es consistente en el lenguaje $\hat{\mathcal{L}}$.
+ 
+Sea $\beta$ una f\'ormula de $\hat{\mathcal{L}}$ tal que $T \vdash \beta$ y $T \vdash \neg \beta$ 
+ 
+Sea $\gamma_1, \gamma_2, \ldots, \gamma_n$ una prueba de $\beta$. Si reemplazamos en aquellos eslabones que aparece un s\'imbolo de constante nuevo $C_i$ por una variable $x_r$ que no aparece en ninguna de las f\'ormulas $\gamma_1, \gamma_2, \ldots, \gamma_n$. 
+ 
+Lo que resulta es una nueva demostraci\'on $\gamma^{'}_1, \ldots, \gamma^{'}_n$, con $\gamma^{'}_{i}$ f\'ormulas de $\mathcal{L}$ 
+ 
+Eligiendo a $x_r$ que no aparece en ninguna de las pruebas se llega a $T \vdash \gamma^{'}_{n}$ y $T \vdash \neg \gamma^{'}_{n}$. Pues $T$ es consistente en $\mathcal{L}$. Luego $T_0 = T$ es consistente en $\hat{\mathcal{L}}$. 
+ 
+Supongamos por hip\'otesis inductiva que $T_n$ es consistente y veamos que $T_{n + 1}$ es consistente. Si $T_{n + 1}$ fuese inconsistente, sabemos que $\alpha_{n + 1} \in T_{n + 1}$ y $\alpha_{n + 1} = (\neg \forall x_{j_{n + 1}} \varphi_{n + 1}(x_{j_{n + 1}}) \Rightarrow \neg  \varphi_{n + 1}(C_{i_{n + 1}}))$.
+ 
+En particular $T \cup \{ \alpha_k \} \vdash \neg \alpha_{n + 1}$ con $1 \leq k \leq n$. Por el teorema de la deducci\'on tendr\'iamos $T_n \vdash (\alpha_{n + 1} \Rightarrow \neg \alpha_{n + 1})$. En particular, usando la tautolog\'ia:
+ 
+$((\alpha_{n + 1} \Rightarrow \neg \alpha_{n + 1}) \Rightarrow \neg \alpha_{n + 1})$. Por M.P. llegamos a que $T \vdash \neg \alpha_{n + 1}$.
+ 
+Luego $T_n \vdash \neg \forall x_{j_{n + 1}} \; \varphi_{n + 1}(x_{j_{n + 1}})$ y $T_n \vdash \varphi_{n + 1}(C_{i_{n + 1}})$. Si reemplazamos en la prueba $C_{i_{n + 1}}$ por una variable $x_r$ que no aparece en la prueba $\varphi_{n + 1}(C_{i_{n + 1}})$ a partir de $T_n$
+ 
+Luego $T_{n} \vdash \varphi_{n + 1}(x_r)$. En particular usando generalizaci\'on obtenemos $T_n \vdash \forall x_r \varphi_{n + 1}(x_r)$ y $T_n \vdash \neg \forall x_{j_{n + 1}}\varphi_{n + 1}(x_{j_{n + 1}})$. 
+
+Notar que la $\forall x_r \; \varphi_{n + 1}(x_r) \iff \forall x_{j_{n + 1}} \; \varphi_{n + 1}(x_{j_{n + 1}})$.
+ 
+Nos queda como:
+ 
+\begin{align*}
+T_n &\vdash \forall x_{j_{n + 1}} \varphi_{n + 1}(x_{j_{n + 1}}) \\
+T_n &\vdash \neg \forall x_{j_{n + 1}} \varphi_{n + 1}(x_{j_{n + 1}}) 
+\end{align*}
+ 
+Con lo cual llegamos a un absurdo.
+\end{proof}
+ 
+\begin{colorario}
+(Teorema de la Completitud de Godel) Sea $\mathcal{L}$ un lenguaje de primer orden y sea $T$ un conjunto de f\'ormulas, tal que $T$ verifica las siguientes condiciones:
+ 
+\begin{enumerate}
+	\item $T$ es consistente
+	\item $T$ es completo
+	\item $A \times \mathcal{L} \subseteq T$
+	\item $T$ es cerrado por las reglas de inferencia.
+\end{enumerate}
+ 
+Entonces existe una interpretaci\'on $\mathcal{I}$ de $\mathcal{L}$ tal que $T = T_{I} = \{ \varphi \in \textbf{Form} / \varphi \text{ es v\'alido en } \mathcal{I} \}$
+\end{colorario}
+ 
+\begin{proof}
+Por la construcci\'on anterior, existe un lenguaje $\mathcal{L} \subseteq \hat{\mathcal{L}}$ y un conjunto $\hat{T}$ consistente en $\hat{\mathcal{L}}$ y tal que $\hat{\mathcal{L}}$ es suficiente para $\hat{T}$. 
+ 
+Por otro lado, existe un conjunto $\hat{T} \subseteq \widetilde{T}$ tal que $\widetilde{T}$ es completo, consistente y $\mathcal{L}$ sigue siendo suficiente para $\hat{T}$. Seg\'un lo que vimos,existe una interpretaci\'on $\mathcal{I}$ de $\hat{\mathcal{L}}$ tal que si $\varphi \in \widetilde{T}$ entonces $\varphi$ es v\'alida en $\mathcal{I}$.
+ 
+Adem\'as si $\varphi$ es un enunciado y $\varphi$ es v\'alido en $\mathcal{I}$ entonces $\varphi \in \widetilde{T}$.
+ 
+Luego $T \subseteq \widetilde{T}_{I}$. Para probar que $T = T_{I}$ basta ver que si $\varphi$ una f\'ormula v\'alida en $\mathcal{I}$ entonces $\varphi \in T$. Si $\varphi$ es valida en $\mathcal{I}$ entonces $\forall x_1, \forall x_2, \ldots, \forall x_n \; \varphi$ tambien es valida en $\mathcal{I}$ donde variables libres de $\varphi \subseteq \{x_1, \ldots, x_n \}$. Veamos que $\forall x_1, \forall x_2, \ldots, \forall x_n \; \varphi \in T$. Sino $\neg \forall x_1, \forall x_2, \ldots, \forall x_n \; \varphi \in T$ (pues T es completo)
+ 
+Absurdo, pues $\forall x_1, \forall x_2, \ldots, \forall x_n \; \varphi \in \widetilde{T_{I}}$ y $\neg \forall x_1, \forall x_2, \ldots, \forall x_n \; \varphi \in \widetilde{T_{I}}$.
+ 
+Luego $\forall x_1, \forall x_2, \ldots, \forall x_n \; \varphi \in T$. Como $A \times \mathcal{L} \subseteq T$ y es cerrado por M.P. usando generalizaci\'on n-veces se llega a $\varphi \in T$ (Referencia Ederthon (Mathematical Logical) 
+\end{proof}
+ 
